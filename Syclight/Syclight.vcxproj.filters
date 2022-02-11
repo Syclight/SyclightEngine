@@ -15,13 +15,22 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\core.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\core.h">
+    <ClInclude Include="src\Syclight\Core.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Syclight\Application.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Syclight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Syclight\EntryPoint.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Syclight\Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
