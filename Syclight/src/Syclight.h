@@ -7,10 +7,13 @@
 #define __SYC_SYCLIGHT_H__
 
 #include <stdio.h>
-#include "Syclight/Application.h"
 
-//bg---EntryPort-----------------------------------------
+#include "Syclight/Common.h"
+#include "Syclight/Application.h"
+#include "Syclight/Log.h"
+
+//---EntryPort--------------------------------------bg---
 #include "Syclight/EntryPoint.h"
-//ed---EntryPort-----------------------------------------
+//---EntryPort--------------------------------------ed---
 
 #endif // !__SYC_SYCLIGHT_H__

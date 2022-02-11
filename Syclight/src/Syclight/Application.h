@@ -2,6 +2,7 @@
 
 #ifndef __SYC_APPLICATION_H__
 
+#include "Common.h"
 #include "Core.h"
 
 namespace syc
@@ -15,7 +16,7 @@ namespace syc
 		void_ Run();
 	};
 
-	// 客户端接口API
+	// 客户端API
 	Application* CreateApplication();
 
 }

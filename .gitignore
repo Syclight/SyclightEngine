@@ -1,7 +1,26 @@
-﻿#dirs
+﻿###dirs
 .vs/
 bin/
 bin_int/
 
-#files
+#spdlog-v1 dirs 
+Syclight/3rd_party_libs/spdlog-v1.x/bench/
+Syclight/3rd_party_libs/spdlog-v1.x/cmake/
+Syclight/3rd_party_libs/spdlog-v1.x/example/
+Syclight/3rd_party_libs/spdlog-v1.x/logos/
+Syclight/3rd_party_libs/spdlog-v1.x/scripts/
+Syclight/3rd_party_libs/spdlog-v1.x/src/
+Syclight/3rd_party_libs/spdlog-v1.x/tests/
+
+###files
 *.user
+
+#spdlog-v1 files 
+Syclight/3rd_party_libs/spdlog-v1.x/.clang-format
+Syclight/3rd_party_libs/spdlog-v1.x/.clang-tidy
+Syclight/3rd_party_libs/spdlog-v1.x/.gitattributes
+Syclight/3rd_party_libs/spdlog-v1.x/.gitignore
+Syclight/3rd_party_libs/spdlog-v1.x/.travis.yml
+Syclight/3rd_party_libs/spdlog-v1.x/appveyor.yml
+Syclight/3rd_party_libs/spdlog-v1.x/CMakeLists.txt
+Syclight/3rd_party_libs/spdlog-v1.x/INSTALL

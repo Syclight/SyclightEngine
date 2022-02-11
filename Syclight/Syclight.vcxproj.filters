@@ -27,9 +27,18 @@
     <ClInclude Include="src\Syclight\EntryPoint.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="src\Syclight\Common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Syclight\Log.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Syclight\Application.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Syclight\Log.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

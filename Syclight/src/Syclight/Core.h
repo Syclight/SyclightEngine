@@ -12,6 +12,4 @@
 	#error Syclight only support Windows!
 #endif // SYC_PLATFORM_WINDOWS
 
-#define void_ void
-
 #endif // !__SYC_CORE_H__
