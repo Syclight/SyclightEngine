@@ -11,12 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Syclight\Log.h" />
     <ClInclude Include="src\Syclight.h" />
     <ClInclude Include="src\Syclight\Application.h" />
+    <ClInclude Include="src\Syclight\Common.h" />
     <ClInclude Include="src\Syclight\Core.h" />
     <ClInclude Include="src\Syclight\EntryPoint.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Syclight\Log.cpp" />
     <ClCompile Include="src\Syclight\Application.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -68,7 +71,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(SolutionDir)Syclight\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Syclight\3rd_party_libs\spdlog-v1.x\include;$(SolutionDir)Syclight\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -83,7 +86,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>SYC_PLATFORM_WINDOWS;SYC_BUILD_DLL;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Syclight\src</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Syclight\3rd_party_libs\spdlog-v1.x\include;$(SolutionDir)Syclight\src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
