@@ -47,14 +47,12 @@ namespace syc
 	#define SYC_LOG_ERROR(...)          ::syc::Log::GetClientLogger()->error(__VA_ARGS__)
 	#define SYC_LOG_FATAL(...)          ::syc::Log::GetClientLogger()->fatal(__VA_ARGS__)
 #else
-	// 引擎日志打印
 	#define SYC_LOG_ENGINE_TRACE(...)
 	#define SYC_LOG_ENGINE_INFO(...)
 	#define SYC_LOG_ENGINE_WARN(...)
 	#define SYC_LOG_ENGINE_ERROR(...)
 	#define SYC_LOG_ENGINE_FATAL(...)
 
-	// 客户端日志打印
 	#define SYC_LOG_TRACE(...)
 	#define SYC_LOG_INFO(...)
 	#define SYC_LOG_WARN(...)

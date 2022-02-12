@@ -1,5 +1,9 @@
 #pragma once
 
+// syc base
+
+#ifndef __SYC_COMMON_H__
+
 typedef void                 void_;
 
 typedef unsigned char        bety;
@@ -22,3 +26,5 @@ typedef unsigned long long   uint64;
 typedef char8_t              char8;
 typedef char16_t             char16;
 typedef char32_t             char32;
+
+#endif // !__SYC_COMMON_H__
