@@ -12,4 +12,6 @@
 	#error Syclight only support Windows!
 #endif // SYC_PLATFORM_WINDOWS
 
+#define BIT(x) (1 << x)
+
 #endif // !__SYC_CORE_H__

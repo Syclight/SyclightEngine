@@ -7,16 +7,17 @@
 
 namespace syc
 {
-	class SYC_API Application
+	class SYC_API Application : public SycObject
 	{
 	public:
 		Application();
-		virtual ~Application();
+		~Application();
 
+		void_ Start();
 		void_ Run();
 	};
 
-	// ¿Í»§¶ËAPI
+	// å®¢æˆ·ç«¯API
 	Application* CreateApplication();
 
 }

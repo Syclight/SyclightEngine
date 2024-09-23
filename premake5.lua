@@ -1,6 +1,10 @@
 workspace "SyclightEngine"
 	architecture "x64"
-	configurations {"Debug", "Release", "Distribution"}
+	configurations {
+		"Debug", 
+		"Release", 
+		"Distribution"
+	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -12,16 +16,27 @@ project "Syclight"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin_int/" .. outputdir .. "/%{prj.name}")
 
-	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
+	files {
+		"%{prj.name}/src/**.h", 
+		"%{prj.name}/src/**.cpp" 
+	}
 
-	includedirs { "%{prj.name}/3rd_party_libs/spdlog-v1.x/include" }
+	includedirs {
+		"%{prj.name}/src/",
+		"%{prj.name}/3rd_party_libs/spdlog-v1.x/include" 
+	}
 
 	filter "system:windows"
 		cppdialect "C++20"
 		staticruntime "On"
-		systemversion "10.0.19041.0"
-		defines { "SYC_PLATFORM_WINDOWS", "SYC_BUILD_DLL" }
-		postbuildcommands { "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"}
+		systemversion "least"
+		defines { 
+			"SYC_PLATFORM_WINDOWS", 
+			"SYC_BUILD_DLL" 
+		}
+		postbuildcommands {
+			 "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
+		}
 		
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"
@@ -43,17 +58,26 @@ project "Sandbox"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin_int/" .. outputdir .. "/%{prj.name}")
 
-	files { "%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp" }
+	files {
+		"%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"
+	}
 
-	includedirs { "Syclight/3rd_party_libs/spdlog-v1.x/include", "Syclight/src" }
+	includedirs {
+		"Syclight/3rd_party_libs/spdlog-v1.x/include", 
+		"Syclight/src"
+	}
 
-	links { "Syclight" }
+	links { 
+		"Syclight"
+	}
 
 	filter "system:windows"
 		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "10.0.19041.0"
-		defines { "SYC_PLATFORM_WINDOWS" }
+		defines {
+			"SYC_PLATFORM_WINDOWS"
+		}
 		
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"

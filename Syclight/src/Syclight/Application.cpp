@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include <iostream>
+
 namespace syc
 {
 	Application::Application()
@@ -10,10 +12,16 @@ namespace syc
 	{
 	}
 
+	void_ Application::Start()
+	{
+		std::cout << "App Start." << std::endl;
+	}
+
 	void_ Application::Run()
 	{
 		while (true)
 		{
+			std::cout << "running..." << std::endl;
 		}
 	}
 }

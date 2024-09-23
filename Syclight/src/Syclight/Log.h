@@ -33,19 +33,19 @@ namespace syc
 }
 
 #ifdef _DEBUG
-	// ÒýÇæÈÕÖ¾´òÓ¡
+	//å¼•æ“Ž
 	#define SYC_LOG_ENGINE_TRACE(...)   ::syc::Log::GetEngineLogger()->trace(__VA_ARGS__)
 	#define SYC_LOG_ENGINE_INFO(...)    ::syc::Log::GetEngineLogger()->info(__VA_ARGS__)
 	#define SYC_LOG_ENGINE_WARN(...)    ::syc::Log::GetEngineLogger()->warn(__VA_ARGS__)
 	#define SYC_LOG_ENGINE_ERROR(...)   ::syc::Log::GetEngineLogger()->error(__VA_ARGS__)
-	#define SYC_LOG_ENGINE_FATAL(...)   ::syc::Log::GetEngineLogger()->fatal(__VA_ARGS__)
+	#define SYC_LOG_ENGINE_FATAL(...)   ::syc::Log::GetEngineLogger()->critical(__VA_ARGS__)
 
-	// ¿Í»§¶ËÈÕÖ¾´òÓ¡
+	//å®¢æˆ·ç«¯
 	#define SYC_LOG_TRACE(...)          ::syc::Log::GetClientLogger()->trace(__VA_ARGS__)
 	#define SYC_LOG_INFO(...)           ::syc::Log::GetClientLogger()->info(__VA_ARGS__)
 	#define SYC_LOG_WARN(...)           ::syc::Log::GetClientLogger()->warn(__VA_ARGS__)
 	#define SYC_LOG_ERROR(...)          ::syc::Log::GetClientLogger()->error(__VA_ARGS__)
-	#define SYC_LOG_FATAL(...)          ::syc::Log::GetClientLogger()->fatal(__VA_ARGS__)
+	#define SYC_LOG_FATAL(...)          ::syc::Log::GetClientLogger()->critical(__VA_ARGS__)
 #else
 	#define SYC_LOG_ENGINE_TRACE(...)
 	#define SYC_LOG_ENGINE_INFO(...)
