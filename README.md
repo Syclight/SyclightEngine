@@ -1,4 +1,8 @@
-### Hi there 👋
+### Syclight Ening README File 👋
+🌱 I’m currently learning to game engin development.
+This is my engin learn from TheCherno/Hazel in youtube.
+
+你可用premake运行prmake5.lua来生成vs项目。
 
 <!--
 **Syclight/Syclight** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.

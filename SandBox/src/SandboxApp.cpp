@@ -16,5 +16,7 @@ public:
 
 syc::Application* syc::CreateApplication()
 {
-	return new SandboxApp();
+	syc::Application* app = nullptr;
+	app = new syc::Application();
+	return app;
 }
