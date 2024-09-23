@@ -9,9 +9,9 @@ int main(int argc, char** argv)
 {
 	syc::Log::Init();
 
-	SYC_LOG_ENGINE_WARN("Initialized Log!");
+	SYC_CORE_WARN("Initialized Log!");
 	syc::int16 a = 5;
-	SYC_LOG_INFO("Hello! {}", a);
+	SYC_INFO("Hello! {}", a);
 
 	auto app = syc::CreateApplication();
 	app->Start();

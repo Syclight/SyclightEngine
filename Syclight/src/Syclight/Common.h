@@ -11,50 +11,24 @@ namespace syc
 	typedef void                 void_;
 
 	typedef unsigned char        byte;
-	typedef bool                 bool32;
+	typedef bool                 bool4;
 
 	typedef signed char          int4;
-	typedef signed short         int16s;
+	typedef signed short         int8s;
 	typedef signed int           int16;
 	typedef signed long          int16l;
-	typedef signed long long     int64;
-	typedef float                float32;
-	typedef double               float64;
+	typedef signed long long     int32;
+	typedef float                float16;
+	typedef double               float32;
 
 	typedef unsigned char        uint4;
-	typedef unsigned short       uint16s;
+	typedef unsigned short       uint8s;
 	typedef unsigned int         uint16;
 	typedef unsigned long        uint16l;
-	typedef unsigned long long   uint64;
+	typedef unsigned long long   uint32;
 
-	typedef char                 char1;
-	typedef wchar_t              char2;
-
-
-	class SycObject
-	{
-	public:
-		uint64 m_LocalBegin, m_LocalEnd;
-		byte* m_Memory;
-
-	public:
-		SycObject() : m_LocalBegin(0L), m_LocalEnd(0L), m_Memory(nullptr)
-		{
-		}
-
-		~SycObject()
-		{
-			if (m_Memory)
-			{
-				for (size_t i = m_LocalBegin; i <= m_LocalEnd; i++)
-				{
-					m_Memory[i] = 0;
-				}
-				m_LocalBegin = 0;
-				m_LocalEnd = 0;
-			}
-		}
-	};
+	typedef char                 char4;
+	typedef wchar_t              char8;
 }
 
 #endif // !__SYC_COMMON_H__
