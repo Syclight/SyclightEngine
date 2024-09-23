@@ -9,8 +9,6 @@
 #include <stdio.h>
 
 #include "Syclight/Common.h"
-#include "Container/Memory.h"
-#include "Container/String.h"
 #include "Syclight/Application.h"
 #include "Syclight/Log.h"
 
