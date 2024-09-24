@@ -1,8 +1,9 @@
+#include "sycpch.h"
 #include "Application.h"
 
 #include <iostream>
 
-#include "../Events/ApplicationEvent.h"
+#include "Events/ApplicationEvent.h"
 #include "Log.h"
 
 namespace syc
@@ -17,7 +18,7 @@ namespace syc
 
 	void_ Application::Start()
 	{
-		std::cout << "App Start." << std::endl;
+		// std::cout << "App Start." << std::endl;
 	}
 
 	void_ Application::Run()

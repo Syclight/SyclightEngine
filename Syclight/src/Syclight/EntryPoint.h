@@ -10,8 +10,8 @@ int main(int argc, char** argv)
 	syc::Log::Init();
 
 	SYC_CORE_WARN("Initialized Log!");
-	syc::int16 a = 5;
-	SYC_INFO("Hello! {}", a);
+	std::string name = "user";
+	SYC_INFO("Hello! {}", name);
 
 	auto app = syc::CreateApplication();
 	app->Start();

@@ -2,8 +2,6 @@
 
 #include "Event.h"
 
-#include <sstream>
-
 namespace syc
 {
 	class SYC_API WindowResizeEvent : public Event

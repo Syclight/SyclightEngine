@@ -16,6 +16,9 @@ project "Syclight"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin_int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "sycpch.h"
+	pchsource "Syclight/src/sycpch.cpp"
+
 	files {
 		"%{prj.name}/src/**.h", 
 		"%{prj.name}/src/**.cpp" 
@@ -27,9 +30,9 @@ project "Syclight"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
+		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "least"
+		systemversion "latest"
 		defines { 
 			"SYC_PLATFORM_WINDOWS", 
 			"SYC_BUILD_DLL" 
