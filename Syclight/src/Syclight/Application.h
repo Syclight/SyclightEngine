@@ -5,6 +5,7 @@
 #include "Common.h"
 #include "Core.h"
 #include "Events/Event.h"
+#include "Window.h"
 
 namespace syc
 {
@@ -14,12 +15,16 @@ namespace syc
 		Application();
 		~Application();
 
-		void_ Start();
+		// void_ Start();
 		void_ Run();
+
+	private:
+		std::unique_ptr<SycWindow> m_Window;
 	};
 
 	// 客户端API
 	Application* CreateApplication();
+	bool4 m_Running = true;
 
 }
 

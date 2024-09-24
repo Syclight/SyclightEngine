@@ -6,28 +6,31 @@
 #include "Events/ApplicationEvent.h"
 #include "Log.h"
 
+#include <GLFW/glfw3.h>
+
 namespace syc
 {
 	Application::Application()
 	{
+		m_Window = std::unique_ptr<SycWindow>(SycWindow::Create());
 	}
 
 	Application::~Application()
 	{
 	}
 
-	void_ Application::Start()
-	{
-		// std::cout << "App Start." << std::endl;
-	}
+	//void_ Application::Start()
+	//{
+	//	// std::cout << "App Start." << std::endl;
+	//}
 
 	void_ Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		SYC_TRACE(e);
-		while (true)
+		while (m_Running)
 		{
-			/*std::cout << "running..." << std::endl;*/
+			glClearColor(1, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
 		}
 	}
 }

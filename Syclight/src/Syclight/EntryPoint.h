@@ -14,7 +14,6 @@ int main(int argc, char** argv)
 	SYC_INFO("Hello! {}", name);
 
 	auto app = syc::CreateApplication();
-	app->Start();
 	app->Run();
 
 	delete app;
