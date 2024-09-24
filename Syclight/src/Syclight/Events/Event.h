@@ -1,10 +1,7 @@
 #pragma once
 
-#include "../Syclight/Core.h"
-#include "../Syclight/Common.h"
-
-#include <string>
-#include <functional>
+#include "Syclight/Core.h"
+#include "Syclight/Common.h"
 
 namespace syc {
 	enum class EventType
