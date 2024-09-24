@@ -1,0 +1,3 @@
+[submodule "Syclight/vendor/GLFW"]
+	path = Syclight/vendor/GLFW
+	url = https://github.com/glfw/glfw

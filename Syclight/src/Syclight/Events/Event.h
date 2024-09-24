@@ -2,6 +2,7 @@
 
 #include "Syclight/Core.h"
 #include "Syclight/Common.h"
+#include "sycpch.h"
 
 namespace syc {
 	enum class EventType

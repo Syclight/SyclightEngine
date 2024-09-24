@@ -8,6 +8,15 @@ workspace "SyclightEngine"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+--Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Syclight/vendor/GLFW/include"
+-- IncludeDir["Glad"] = "Syclight/vendor/glad/include"
+-- IncludeDir["ImGui"] = "Syclight/vendor/imgui"
+-- IncludeDir["spdlog"] = "Syclight/vendor/spdlog-v1.x/include"
+
+include "Syclight/vendor/GLFW"
+
 project "Syclight"
 	location "Syclight"
 	kind "SharedLib"
@@ -26,7 +35,13 @@ project "Syclight"
 
 	includedirs {
 		"%{prj.name}/src/",
-		"%{prj.name}/3rd_party_libs/spdlog-v1.x/include" 
+		"%{prj.name}/vendor/spdlog-v1.x/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links { 
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -66,7 +81,7 @@ project "Sandbox"
 	}
 
 	includedirs {
-		"Syclight/3rd_party_libs/spdlog-v1.x/include", 
+		"Syclight/vendor/spdlog-v1.x/include", 
 		"Syclight/src"
 	}
 
