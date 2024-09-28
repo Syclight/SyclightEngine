@@ -58,14 +58,17 @@ project "Syclight"
 		
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SYC_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Distribution"
 		defines "SYC_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
@@ -99,12 +102,15 @@ project "Sandbox"
 		
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SYC_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Distribution"
 		defines "SYC_DIST"
+		buildoptions "/MD"
 		optimize "On"

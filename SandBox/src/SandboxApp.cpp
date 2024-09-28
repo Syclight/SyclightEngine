@@ -1,14 +1,35 @@
 #include <Syclight.h>
 
-class SandboxApp : public syc::Application
+class ExampleLayer : public syc::Layer
 {
 public:
-	SandboxApp()
+	ExampleLayer()
+		: Layer("Example")
 	{
-
 	}
 
-	~SandboxApp()
+	void OnUpdate() override
+	{
+		SYC_INFO("ExampleLayer::Update");
+	}
+
+	void OnEvent(syc::Event& e) override
+	{
+		 SYC_TRACE("{0}", e);
+		//std::cout << e.GetName() << '\n';
+		std::cout << e.ToString() << '\n';
+	}
+};
+
+class Sandbox : public syc::Application
+{
+public:
+	Sandbox()
+	{
+		PushLayer(new ExampleLayer());
+	}
+
+	~Sandbox()
 	{
 
 	}
@@ -16,7 +37,9 @@ public:
 
 syc::Application* syc::CreateApplication()
 {
-	syc::Application* app = nullptr;
+	/*syc::Application* app = nullptr;
 	app = new syc::Application();
-	return app;
+	return app;*/
+	return new Sandbox();
+	//return new syc::Application();
 }

@@ -31,8 +31,11 @@ namespace syc {
 
 	class SYC_API Event
 	{
-		friend class EventDispatcher;
+		// friend class EventDispatcher;
+
 	public:
+		virtual ~Event() = default;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char4* GetName() const = 0;
 		virtual int16 GetCategoryFlags() const = 0;
@@ -42,8 +45,8 @@ namespace syc {
 		{
 			return GetCategoryFlags() & category;
 		}
-	protected:
-		bool4 m_Handled = false;
+	public:
+		bool4 Handled = false;
 	};
 
 	class EventDispatcher
@@ -61,7 +64,8 @@ namespace syc {
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				m_Event.m_Handled = func(*(T*)&m_Event);
+				//m_Event.Handled |= func(static_cast<T&>(m_Event));
+				m_Event.Handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;
@@ -72,6 +76,7 @@ namespace syc {
 
 	inline std::ostream& operator<<(std::ostream& os, const Event& e)
 	{
+		// std::cout << e.ToString() << "\n";
 		return os << e.ToString();
 	}
 }
