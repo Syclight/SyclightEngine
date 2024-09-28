@@ -13,11 +13,11 @@ namespace syc
 	typedef unsigned char        byte;
 	typedef bool                 bool4;
 
-	typedef signed char          int4;
-	typedef signed short         int8s;
-	typedef signed int           int16;
-	typedef signed long          int16l;
-	typedef signed long long     int32;
+	typedef char				 int4;
+	typedef short				 int8s;
+	typedef int					 int16;
+	typedef long				 int16l;
+	typedef long long			 int32;
 	typedef float                float16;
 	typedef double               float32;
 
