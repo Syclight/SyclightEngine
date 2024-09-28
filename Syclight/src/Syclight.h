@@ -10,6 +10,7 @@
 
 #include "Syclight/Common.h"
 #include "Syclight/Application.h"
+#include "Syclight/Layer.h"
 #include "Syclight/Log.h"
 
 //---EntryPort--------------------------------------bg---
