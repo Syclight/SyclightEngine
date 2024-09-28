@@ -90,9 +90,9 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
+		cppdialect "C++17"
 		staticruntime "On"
-		systemversion "10.0.19041.0"
+		systemversion "latest"
 		defines {
 			"SYC_PLATFORM_WINDOWS"
 		}

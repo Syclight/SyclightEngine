@@ -18,7 +18,7 @@ namespace syc
 	class SYC_API KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
+		KeyPressedEvent(int16 keycode, int16 repeatCount)
 			: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 		inline int GetRepratCount() const { return m_RepeatCount; }
 
@@ -37,7 +37,7 @@ namespace syc
 	class SYC_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode, int repeatCount)
+		KeyReleasedEvent(int16 keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override
