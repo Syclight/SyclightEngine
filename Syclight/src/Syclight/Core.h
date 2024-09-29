@@ -12,9 +12,9 @@
 	#error Syclight only support Windows!
 #endif // SYC_PLATFORM_WINDOWS
 
-#if define SYC_ENABLE_ASSERTS
-	#define SYC_ASSERT(x, ...) { if(!(x)) { SYC_ERROR("Assertion Failed {0}", __VA_ARGS__); __debugbreak(); } }
-	#define SYC_CORE_ASSERT(x, ...) { if(!(x)) { SYC_CORE_ERROR("Assertion Failed {0}", __VA_ARGS__); __debugbreak(); } }
+#ifdef SYC_ENABLE_ASSERTS
+	#define SYC_ASSERT(x, ...) { if(!(x)) { SYC_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+	#define SYC_CORE_ASSERT(x, ...) { if(!(x)) { SYC_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #else
 	#define SYC_ASSERT(x, ...)
 	#define SYC_CORE_ASSERT(x, ...)

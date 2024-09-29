@@ -6,6 +6,9 @@
 #include "Syclight/Events/KeyEvent.h"
 #include "Syclight/Events/MouseEvent.h"
 
+
+#include <glad/glad.h>
+
 namespace syc
 {
 	static bool4 s_GLFWInitialized = false;
@@ -40,6 +43,9 @@ namespace syc
 		if (!s_GLFWInitialized)
 		{
 			int16 success = glfwInit();
+			/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
 			SYC_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
 			s_GLFWInitialized = true;
@@ -47,6 +53,10 @@ namespace syc
 
 		m_Window = glfwCreateWindow((int16)m_Data.Width, (int16)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+
+		int16 status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		SYC_CORE_ASSERT(status, "Failed to initailize Glad");
+		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

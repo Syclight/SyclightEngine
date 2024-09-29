@@ -11,11 +11,13 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 --Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Syclight/vendor/GLFW/include"
--- IncludeDir["Glad"] = "Syclight/vendor/glad/include"
--- IncludeDir["ImGui"] = "Syclight/vendor/imgui"
+IncludeDir["Glad"] = "Syclight/vendor/Glad/include"
+IncludeDir["ImGui"] = "Syclight/vendor/imgui"
 -- IncludeDir["spdlog"] = "Syclight/vendor/spdlog-v1.x/include"
 
 include "Syclight/vendor/GLFW"
+include "Syclight/vendor/Glad"
+include "Syclight/vendor/imgui"
 
 project "Syclight"
 	location "Syclight"
@@ -36,11 +38,16 @@ project "Syclight"
 	includedirs {
 		"%{prj.name}/src/",
 		"%{prj.name}/vendor/spdlog-v1.x/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.ImGui}"
+		
 	}
 
 	links { 
 		"GLFW",
+		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 
@@ -48,10 +55,13 @@ project "Syclight"
 		cppdialect "C++17"
 		staticruntime "On"
 		systemversion "latest"
+
 		defines { 
 			"SYC_PLATFORM_WINDOWS", 
-			"SYC_BUILD_DLL" 
+			"SYC_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
+
 		postbuildcommands {
 			 "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
 		}
