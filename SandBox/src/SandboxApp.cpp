@@ -16,8 +16,6 @@ public:
 	void OnEvent(syc::Event& e) override
 	{
 		 SYC_TRACE("{0}", e);
-		//std::cout << e.GetName() << '\n';
-		std::cout << e.ToString() << '\n';
 	}
 };
 
@@ -27,6 +25,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushLayer(new syc::ImGuiLayer());
 	}
 
 	~Sandbox()
@@ -37,9 +36,5 @@ public:
 
 syc::Application* syc::CreateApplication()
 {
-	/*syc::Application* app = nullptr;
-	app = new syc::Application();
-	return app;*/
 	return new Sandbox();
-	//return new syc::Application();
 }

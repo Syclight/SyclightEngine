@@ -13,6 +13,8 @@
 #include "Syclight/Layer.h"
 #include "Syclight/Log.h"
 
+#include "Syclight/ImGui/ImGuiLayer.h"
+
 //---EntryPort--------------------------------------bg---
 #include "Syclight/EntryPoint.h"
 //---EntryPort--------------------------------------ed---

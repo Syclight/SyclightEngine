@@ -3,15 +3,21 @@
 
 #include <iostream>
 
-#include "Log.h"
+#include "Syclight/Log.h"
 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
+
 
 namespace syc
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
+
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		SYC_CORE_ASSERT(!s_Instance, "Application already exists!");
+		s_Instance = this;
 		m_Window = std::unique_ptr<SycWindow>(SycWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 	}
@@ -61,11 +67,13 @@ namespace syc
 	void_ Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void_ Application::PushOverlay(Layer* layer)
 	{
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	bool4 Application::OnWindowClose(WindowCloseEvent& e)

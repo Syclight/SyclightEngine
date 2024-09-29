@@ -21,6 +21,9 @@ namespace syc
 		bool4 m_Running = true;
 		LayerStack m_LayerStack;
 
+	private:
+		static Application* s_Instance;
+
 	public:
 		Application();
 		~Application();
@@ -32,6 +35,9 @@ namespace syc
 
 		void_ PushLayer(Layer* layer);
 		void_ PushOverlay(Layer* layer);
+
+		inline static Application& Get() { return *s_Instance; }
+		inline SycWindow& GetWindow() { return *m_Window; }
 	};
 
 	// 客户端API
