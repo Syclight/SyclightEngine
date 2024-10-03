@@ -3,6 +3,8 @@
 #ifndef __SYC_ENTRY_POINT_H__
 #define __SYC_ENTRY_POINT_H__
 
+#ifdef SYC_PLATFORM_WINDOWS
+
 extern syc::Application* syc::CreateApplication();
 
 int main(int argc, char** argv)
@@ -20,5 +22,6 @@ int main(int argc, char** argv)
 
 	return 0;
 }
+#endif
 
 #endif // !__SYC_ENTRY_POINT_H__

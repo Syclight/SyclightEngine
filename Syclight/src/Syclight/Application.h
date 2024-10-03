@@ -2,27 +2,28 @@
 
 #ifndef __SYC_APPLICATION_H__
 
-#include "Common.h"
-#include "Core.h"
+#include "Window.h"
 #include "Syclight/LayerStack.h"
 #include "Syclight/Events/Event.h"
 #include "Syclight/Events/ApplicationEvent.h"
 
-#include "Window.h"
+
+#include "Syclight/ImGui/ImGuiLayer.h"
 
 namespace syc
 {
 	class SYC_API Application
 	{
 	private:
-		bool4 OnWindowClose(WindowCloseEvent& e);
-
 		std::unique_ptr<SycWindow> m_Window;
+		ImGuiLayer* m_ImGuiLayer = nullptr;
 		bool4 m_Running = true;
 		LayerStack m_LayerStack;
 
-	private:
 		static Application* s_Instance;
+
+	private:
+		bool4 OnWindowClose(WindowCloseEvent& e);
 
 	public:
 		Application();

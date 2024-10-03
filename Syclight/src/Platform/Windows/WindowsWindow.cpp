@@ -107,6 +107,13 @@ namespace syc
 				}
 			});
 
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, uint16 keycode)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				KeyTypedEvent event(keycode);
+				data.EventCallback(event);
+			});
+
 		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int16 button, int16 action, int16 mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);

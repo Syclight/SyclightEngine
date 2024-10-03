@@ -22,6 +22,7 @@ namespace syc
 		inline void_ SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void_ SetVSync(bool4 enabled) override;
 		bool4 IsVSync() const override;
+		void_* GetNativeWindow() const override { return m_Window; }
 
 	private:
 		virtual void_ Init(const WindowProps& props);

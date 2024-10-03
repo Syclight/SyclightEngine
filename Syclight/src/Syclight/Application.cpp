@@ -20,10 +20,15 @@ namespace syc
 		s_Instance = this;
 		m_Window = std::unique_ptr<SycWindow>(SycWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
 	{
+		/*delete m_ImGuiLayer;
+		m_ImGuiLayer = nullptr;*/
 	}
 
 	//void_ Application::Start()
@@ -38,8 +43,23 @@ namespace syc
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+			{
+				if (!layer->IsAttached())
+				{
+					layer->OnAttach();
+				}
+				layer->OnImGuiRender();
+			}
+			m_ImGuiLayer->End();
+
 			for (Layer* layer : m_LayerStack)
 			{ 
+				if (!layer->IsAttached())
+				{
+					layer->OnAttach();
+				}
 				layer->OnUpdate();
 			}
 

@@ -1,5 +1,6 @@
 workspace "SyclightEngine"
 	architecture "x64"
+	startproject "Sandbox"
 	configurations {
 		"Debug", 
 		"Release", 
@@ -23,6 +24,7 @@ project "Syclight"
 	location "Syclight"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin_int/" .. outputdir .. "/%{prj.name}")
@@ -53,7 +55,7 @@ project "Syclight"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		-- staticruntime "On"
 		systemversion "latest"
 
 		defines { 
@@ -63,28 +65,33 @@ project "Syclight"
 		}
 
 		postbuildcommands {
-			 "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
+			--  "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
+			"{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""
 		}
 		
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
+		-- buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SYC_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
+		-- buildoptions "/MD"
 		optimize "On"
 
-	filter "configurations:Distribution"
+	filter "configurations:Dist"
 		defines "SYC_DIST"
-		buildoptions "/MD"
+		runtime "Release"
+		-- buildoptions "/MD"
 		optimize "On"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "Off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin_int/" .. outputdir .. "/%{prj.name}")
@@ -104,7 +111,7 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
+		-- staticruntime "On"
 		systemversion "latest"
 		defines {
 			"SYC_PLATFORM_WINDOWS"
@@ -112,15 +119,18 @@ project "Sandbox"
 		
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
+		-- buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "SYC_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
+		-- buildoptions "/MD"
 		optimize "On"
 
-	filter "configurations:Distribution"
+	filter "configurations:Dist"
 		defines "SYC_DIST"
-		buildoptions "/MD"
+		runtime "Release"
+		-- buildoptions "/MD"
 		optimize "On"
