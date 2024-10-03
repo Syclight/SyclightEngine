@@ -25,7 +25,8 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushLayer(new syc::ImGuiLayer());
+
+		//PushLayer(new syc::ImGuiLayer());
 	}
 
 	~Sandbox()

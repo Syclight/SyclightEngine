@@ -167,7 +167,7 @@
 // - You can temporarily use an unstripped version. See https://github.com/dearimgui/gl3w_stripped/releases
 // Changes to this backend using new APIs should be accompanied by a regenerated stripped loader version.
 #define IMGUI_IMPL_OPENGL_LOADER_CUSTOM
-#include <glad/glad.h>
+#include <glad/glad.h> 
 #endif
 
 // Vertex arrays are not supported on ES2/WebGL1 unless Emscripten which uses an extension

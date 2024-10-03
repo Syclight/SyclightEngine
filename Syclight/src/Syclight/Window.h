@@ -12,8 +12,8 @@ namespace syc
 
 		WindowProps(
 			const std::string& title = "Syclight Engine",
-			uint16 width = 1280,
-			uint16 height = 720)
+			uint16 width = 1920,
+			uint16 height = 1080)
 			: Title(title), Width(width), Height(height)
 		{}
 	};
@@ -34,6 +34,8 @@ namespace syc
 		virtual void_ SetEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void_ SetVSync(bool enabled) = 0;
 		virtual bool4 IsVSync() const = 0;
+
+		virtual void_* GetNativeWindow() const = 0;
 
 		static SycWindow* Create(const WindowProps& props = WindowProps());
 	};
