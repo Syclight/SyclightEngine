@@ -7,6 +7,7 @@
 
 #include <glad/glad.h>
 
+#include "Input.h"
 
 namespace syc
 {
@@ -21,14 +22,11 @@ namespace syc
 		m_Window = std::unique_ptr<SycWindow>(SycWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
+		PushOverlay(new ImGuiLayer());
 	}
 
 	Application::~Application()
 	{
-		/*delete m_ImGuiLayer;
-		m_ImGuiLayer = nullptr;*/
 	}
 
 	//void_ Application::Start()
@@ -46,22 +44,17 @@ namespace syc
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 			{
-				if (!layer->IsAttached())
-				{
-					layer->OnAttach();
-				}
 				layer->OnImGuiRender();
 			}
 			m_ImGuiLayer->End();
 
 			for (Layer* layer : m_LayerStack)
 			{ 
-				if (!layer->IsAttached())
-				{
-					layer->OnAttach();
-				}
 				layer->OnUpdate();
 			}
+
+			/*auto [x, y] = Input::GetMousePosition();
+			SYC_CORE_TRACE("{0}, {1}", x, y);*/
 
 			m_Window->OnUpdate();
 		}
@@ -71,8 +64,6 @@ namespace syc
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-
-		// SYC_CORE_TRACE("{0}", e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

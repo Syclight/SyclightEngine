@@ -10,21 +10,17 @@ namespace syc
 	{
 	protected:
 		std::string m_DebugName;
-		bool4 m_IsAttached = false;
 
 	public:
 		Layer(const std::string& name = "Layer");
 		virtual ~Layer() = default;
 
-		virtual void_ OnAttach() { SetAttached(); }
-		virtual void_ OnDetach() { SetDetached(); }
+		virtual void_ OnAttach() {}
+		virtual void_ OnDetach() {}
 		virtual void_ OnUpdate() {}
 		virtual void_ OnImGuiRender() {}
 		virtual void_ OnEvent(Event& event) {}
 
-		inline void_ SetAttached() { m_IsAttached = true; }
-		inline void_ SetDetached() { m_IsAttached = false; }
-		inline const bool4 IsAttached() const { return m_IsAttached; }
 		inline const std::string& GetName() const { return m_DebugName; }
 	};
 }

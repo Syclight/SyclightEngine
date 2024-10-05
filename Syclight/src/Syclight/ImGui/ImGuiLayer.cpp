@@ -92,8 +92,6 @@ namespace syc
 		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
-
-		SetAttached();
 	}
 
 	void_ ImGuiLayer::OnDetach()
@@ -101,7 +99,6 @@ namespace syc
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
-		SetDetached();
 	}
 
 	void_ ImGuiLayer::OnImGuiRender()
