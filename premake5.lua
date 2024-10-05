@@ -102,7 +102,8 @@ project "Sandbox"
 
 	includedirs {
 		"Syclight/vendor/spdlog-v1.x/include", 
-		"Syclight/src"
+		"Syclight/src",
+		"Syclight/vendor"
 	}
 
 	links { 

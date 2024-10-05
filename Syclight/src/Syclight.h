@@ -9,9 +9,14 @@
 #include <stdio.h>
 
 #include "Syclight/Common.h"
+
 #include "Syclight/Application.h"
 #include "Syclight/Layer.h"
 #include "Syclight/Log.h"
+
+#include "Syclight/Input.h"
+#include "Syclight/KeyCodes.h"
+#include "Syclight/MouseButtonCodes.h"
 
 #include "Syclight/ImGui/ImGuiLayer.h"
 

@@ -29,6 +29,9 @@ namespace syc
 
 	typedef char                 char4;
 	typedef wchar_t              char8;
+
+
+	#define Pos2d std::pair<float16, float16>
 }
 
 #endif // !__SYC_COMMON_H__
