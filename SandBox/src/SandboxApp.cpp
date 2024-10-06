@@ -1,6 +1,6 @@
 #include <Syclight.h>
 
-//#include "imgui/imgui.h"
+#include "imgui/imgui.h"
 
 class ExampleLayer : public syc::Layer
 {
@@ -21,9 +21,9 @@ public:
 
 	void OnImGuiRender() override
 	{
-		/*ImGui::Begin("Test");
+		ImGui::Begin("Test");
 		ImGui::Text("Hi! This is Syclight Engine.");
-		ImGui::End();*/
+		ImGui::End();
 	}
 
 	void OnEvent(syc::Event& e) override
