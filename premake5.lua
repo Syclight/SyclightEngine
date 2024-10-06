@@ -14,17 +14,22 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Syclight/vendor/GLFW/include"
 IncludeDir["Glad"] = "Syclight/vendor/Glad/include"
 IncludeDir["ImGui"] = "Syclight/vendor/imgui"
+IncludeDir["glm"] = "Syclight/vendor/glm"
 -- IncludeDir["spdlog"] = "Syclight/vendor/spdlog-v1.x/include"
 
 include "Syclight/vendor/GLFW"
 include "Syclight/vendor/Glad"
 include "Syclight/vendor/imgui"
+-- include "Syclight/vendor/glm"
 
 project "Syclight"
 	location "Syclight"
-	kind "SharedLib"
+	-- kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	-- staticruntime "Off"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin_int/" .. outputdir .. "/%{prj.name}")
@@ -34,7 +39,14 @@ project "Syclight"
 
 	files {
 		"%{prj.name}/src/**.h", 
-		"%{prj.name}/src/**.cpp" 
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+
+	defines {
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
 	}
 
 	includedirs {
@@ -42,8 +54,8 @@ project "Syclight"
 		"%{prj.name}/vendor/spdlog-v1.x/include",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.ImGui}"
-		
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links { 
@@ -54,8 +66,6 @@ project "Syclight"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		-- staticruntime "On"
 		systemversion "latest"
 
 		defines { 
@@ -64,46 +74,46 @@ project "Syclight"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands {
-			--  "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
-			"{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""
-		}
+		-- postbuildcommands {
+		-- 	--  "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
+		-- 	"{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""
+		-- }
 		
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"
 		runtime "Debug"
-		-- buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "SYC_RELEASE"
 		runtime "Release"
-		-- buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SYC_DIST"
 		runtime "Release"
-		-- buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "Off"
+	cppdialect "C++17"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin_int/" .. outputdir .. "/%{prj.name}")
 
 	files {
-		"%{prj.name}/src/**.h", "%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.h", 
+		"%{prj.name}/src/**.cpp"
 	}
 
 	includedirs {
 		"Syclight/vendor/spdlog-v1.x/include", 
 		"Syclight/src",
-		"Syclight/vendor"
+		"Syclight/vendor",
+		"%{IncludeDir.glm}"
 	}
 
 	links { 
@@ -111,8 +121,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		-- staticruntime "On"
 		systemversion "latest"
 		defines {
 			"SYC_PLATFORM_WINDOWS"
@@ -121,17 +129,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "SYC_DEBUG"
 		runtime "Debug"
-		-- buildoptions "/MDd"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "SYC_RELEASE"
 		runtime "Release"
-		-- buildoptions "/MD"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "SYC_DIST"
 		runtime "Release"
-		-- buildoptions "/MD"
-		optimize "On"
+		optimize "on"
