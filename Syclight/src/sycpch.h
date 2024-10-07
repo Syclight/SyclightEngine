@@ -12,6 +12,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Syclight/Log.h"
+
 #ifdef SYC_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif // SYC_PLATFORM_WINDOWS

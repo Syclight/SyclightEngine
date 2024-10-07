@@ -10,6 +10,8 @@
 
 #include "Syclight/ImGui/ImGuiLayer.h"
 
+#include "Syclight/Renderer/Shader.h"
+
 namespace syc
 {
 	class SYC_API Application
@@ -21,6 +23,7 @@ namespace syc
 		LayerStack m_LayerStack;
 
 		uint32 m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 
 		static Application* s_Instance;
 
