@@ -7,13 +7,13 @@ namespace syc
 	struct WindowProps
 	{
 		std::string Title;
-		uint16 Width;
-		uint16 Height;
+		uint32 Width;
+		uint32 Height;
 
 		WindowProps(
 			const std::string& title = "Syclight Engine",
-			uint16 width = 1920,
-			uint16 height = 1080)
+			uint32 width = 1920,
+			uint32 height = 1080)
 			: Title(title), Width(width), Height(height)
 		{}
 	};
@@ -27,13 +27,13 @@ namespace syc
 
 		virtual void OnUpdate() = 0;
 
-		virtual uint16 GetWidth() const = 0;
-		virtual uint16 GetHeight() const = 0;
+		virtual uint32 GetWidth() const = 0;
+		virtual uint32 GetHeight() const = 0;
 
 		//窗口属性
 		virtual void_ SetEventCallback(const EventCallbackFn& callback) = 0;
 		virtual void_ SetVSync(bool enabled) = 0;
-		virtual bool4 IsVSync() const = 0;
+		virtual bool8 IsVSync() const = 0;
 
 		virtual void_* GetNativeWindow() const = 0;
 

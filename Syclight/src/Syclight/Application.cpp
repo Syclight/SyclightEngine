@@ -31,7 +31,7 @@ namespace syc
 		glGenBuffers(1, &m_VertexBuffer);
 		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
 
-		float16 vertices[3 * 3] = {
+		float32 vertices[3 * 3] = {
 			-0.5f, -0.5f, 0.0f,
 			 0.5f, -0.5f, 0.0f,
 			 0.0f,  0.5f, 0.0f
@@ -44,7 +44,7 @@ namespace syc
 		glGenBuffers(1, &m_IndexBuffer);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
 
-		uint16 indices[3] = { 0, 1, 2 };
+		uint32 indices[3] = { 0, 1, 2 };
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 	}
 
@@ -113,7 +113,7 @@ namespace syc
 		layer->OnAttach();
 	}
 
-	bool4 Application::OnWindowClose(WindowCloseEvent& e)
+	bool8 Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
 		return true;

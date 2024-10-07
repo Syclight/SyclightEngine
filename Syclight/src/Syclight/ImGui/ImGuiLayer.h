@@ -22,16 +22,6 @@ namespace syc
 		void_ Begin();
 		void_ End();
 
-	/*private:
-		bool4 OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
-		bool4 OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-		bool4 OnMouseMovedEvent(MouseMovedEvent& e);
-		bool4 OnMouseScrolledEvent(MouseScrolledEvent& e);
-		bool4 OnKeyPressedEvent(KeyPressedEvent& e);
-		bool4 OnKeyReleasedEvent(KeyReleasedEvent& e);
-		bool4 OnKeyTypedEvent(KeyTypedEvent& e);
-		bool4 OnWindowResizedEvent(WindowResizeEvent& e);*/
-
 	private:
 		float m_Time = 0.0f;
 	};

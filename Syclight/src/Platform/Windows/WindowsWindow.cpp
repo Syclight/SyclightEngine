@@ -10,9 +10,9 @@
 
 namespace syc
 {
-	static bool4 s_GLFWInitialized = false;
+	static bool8 s_GLFWInitialized = false;
 
-	static void_ GLFWErrorCallback(int16 error, const char4* description)
+	static void_ GLFWErrorCallback(int32 error, const char8* description)
 	{
 		SYC_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
@@ -41,7 +41,7 @@ namespace syc
 
 		if (!s_GLFWInitialized)
 		{
-			int16 success = glfwInit();
+			int32 success = glfwInit();
 			/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
@@ -50,7 +50,7 @@ namespace syc
 			s_GLFWInitialized = true;
 		}
 
-		m_Window = glfwCreateWindow((int16)m_Data.Width, (int16)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		m_Window = glfwCreateWindow((int32)m_Data.Width, (int32)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
@@ -59,7 +59,7 @@ namespace syc
 		SetVSync(true);
 
 		// GLFW 回调函数
-		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int16 width, int16 height) 
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int32 width, int32 height) 
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				data.Width = width;
@@ -76,7 +76,7 @@ namespace syc
 				data.EventCallback(event);
 			});
 
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int16 key, int16 scancode, int16 action, int16 mods)
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int32 key, int32 scancode, int32 action, int32 mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				
@@ -105,14 +105,14 @@ namespace syc
 				}
 			});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, uint16 keycode)
+		glfwSetCharCallback(m_Window, [](GLFWwindow* window, uint32 keycode)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				KeyTypedEvent event(keycode);
 				data.EventCallback(event);
 			});
 
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int16 button, int16 action, int16 mods)
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int32 button, int32 action, int32 mods)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				switch (action)
@@ -134,17 +134,17 @@ namespace syc
 				}
 			});
 
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, float32 xOffset, float32 yOffset)
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, float64 xOffset, float64 yOffset)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				MouseScrolledEvent event((float16)xOffset, (float16)yOffset);
+				MouseScrolledEvent event((float32)xOffset, (float32)yOffset);
 				data.EventCallback(event);
 			});
 
-		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, float32 xPos, float32 yPos)
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, float64 xPos, float64 yPos)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				MouseMovedEvent event((float16)xPos, (float16)yPos);
+				MouseMovedEvent event((float32)xPos, (float32)yPos);
 				data.EventCallback(event);
 			});
 	}
@@ -160,7 +160,7 @@ namespace syc
 		m_Context->SwapBuffers();
 	}
 
-	void_ WindowsWindow::SetVSync(bool4 enabled)
+	void_ WindowsWindow::SetVSync(bool8 enabled)
 	{
 		if (enabled)
 		{
@@ -173,7 +173,7 @@ namespace syc
 		m_Data.VSync = enabled;
 	}
 
-	bool4 WindowsWindow::IsVSync() const
+	bool8 WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
 	}

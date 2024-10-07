@@ -7,18 +7,18 @@ namespace syc
 	class SYC_API KeyEvent : public Event
 	{
 	public:
-		inline int16 GetKeyCode() const { return m_KeyCode; }
+		inline int32 GetKeyCode() const { return m_KeyCode; }
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:
-		KeyEvent(int16 keycode)
+		KeyEvent(int32 keycode)
 			: m_KeyCode(keycode) {}
-		int16 m_KeyCode;
+		int32 m_KeyCode;
 	};
 
 	class SYC_API KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int16 keycode, int16 repeatCount)
+		KeyPressedEvent(int32 keycode, int32 repeatCount)
 			: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 		inline int GetRepratCount() const { return m_RepeatCount; }
 
@@ -31,13 +31,13 @@ namespace syc
 
 		EVENT_CLASS_TYPE(KeyPressed)
 	private:
-		int16 m_RepeatCount;
+		int32 m_RepeatCount;
 	};
 
 	class SYC_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int16 keycode)
+		KeyReleasedEvent(int32 keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override
@@ -53,7 +53,7 @@ namespace syc
 	class SYC_API KeyTypedEvent : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int16 keycode)
+		KeyTypedEvent(int32 keycode)
 			: KeyEvent(keycode) {}
 
 		std::string ToString() const override

@@ -17,15 +17,15 @@ namespace syc
 	private:
 		std::unique_ptr<SycWindow> m_Window;
 		ImGuiLayer* m_ImGuiLayer = nullptr;
-		bool4 m_Running = true;
+		bool8 m_Running = true;
 		LayerStack m_LayerStack;
 
-		uint16 m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		uint32 m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 
 		static Application* s_Instance;
 
 	private:
-		bool4 OnWindowClose(WindowCloseEvent& e);
+		bool8 OnWindowClose(WindowCloseEvent& e);
 
 	public:
 		Application();

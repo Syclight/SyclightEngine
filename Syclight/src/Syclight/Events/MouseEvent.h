@@ -7,11 +7,11 @@ namespace syc
 	class SYC_API MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(float16 x, float16 y)
+		MouseMovedEvent(float32 x, float32 y)
 			: m_MouseX(x), m_MouseY(y) {}
 
-		inline float16 GetX() const { return m_MouseX; }
-		inline float16 GetY() const { return m_MouseY; }
+		inline float32 GetX() const { return m_MouseX; }
+		inline float32 GetY() const { return m_MouseY; }
 
 		std::string ToString() const override
 		{
@@ -23,17 +23,17 @@ namespace syc
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
-		float16 m_MouseX, m_MouseY;
+		float32 m_MouseX, m_MouseY;
 	};
 
 	class SYC_API MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(float16 xOffset, float16 yOffset)
+		MouseScrolledEvent(float32 xOffset, float32 yOffset)
 			:m_XOffset(xOffset), m_YOffset(yOffset) {}
 
-		inline float16 GetXOffset() const { return m_XOffset; }
-		inline float16 GetYOffset() const { return m_YOffset; }
+		inline float32 GetXOffset() const { return m_XOffset; }
+		inline float32 GetYOffset() const { return m_YOffset; }
 
 		std::string ToString() const override
 		{
@@ -46,26 +46,26 @@ namespace syc
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	private:
-		float16 m_XOffset, m_YOffset;
+		float32 m_XOffset, m_YOffset;
 	};
 
 	class SYC_API MouseButtonEvent : public Event
 	{
 	public:
-		inline int16 GetButton() const { return m_Button; }
+		inline int32 GetButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 
 	protected:
-		MouseButtonEvent(int16 button)
+		MouseButtonEvent(int32 button)
 			: m_Button(button) {}
-		int16 m_Button;
+		int32 m_Button;
 	};
 
 	class SYC_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int16 button)
+		MouseButtonPressedEvent(int32 button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override
@@ -81,7 +81,7 @@ namespace syc
 	class SYC_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int16 button)
+		MouseButtonReleasedEvent(int32 button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override

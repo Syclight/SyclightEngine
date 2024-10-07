@@ -7,10 +7,10 @@ namespace syc
 	class SYC_API WindowResizeEvent : public Event
 	{
 	public:
-		WindowResizeEvent(uint16 width, uint16 height)
+		WindowResizeEvent(uint32 width, uint32 height)
 			: m_Width(width), m_Height(height) {}
-		inline uint16 GetWidth() const { return m_Width; }
-		inline uint16 GetHeight() const { return m_Height; }
+		inline uint32 GetWidth() const { return m_Width; }
+		inline uint32 GetHeight() const { return m_Height; }
 
 		std::string ToString() const override
 		{
@@ -22,7 +22,7 @@ namespace syc
 		EVENT_CLASS_TYPE(WindowResize)
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 	private:
-		uint16 m_Width, m_Height;
+		uint32 m_Width, m_Height;
 	};
 
 	class SYC_API WindowCloseEvent : public Event
