@@ -27,3 +27,4 @@ Syclight/3rd_party_libs/spdlog-v1.x/.travis.yml
 Syclight/3rd_party_libs/spdlog-v1.x/appveyor.yml
 Syclight/3rd_party_libs/spdlog-v1.x/CMakeLists.txt
 Syclight/3rd_party_libs/spdlog-v1.x/INSTALL
+/bin-int/Debug-windows-x86_64
