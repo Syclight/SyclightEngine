@@ -15,13 +15,13 @@ namespace syc
 
 		void_ OnUpdate() override;
 
-		inline uint16 GetWidth() const override { return m_Data.Width; }
-		inline uint16 GetHeight() const override { return m_Data.Height; }
+		inline uint32 GetWidth() const override { return m_Data.Width; }
+		inline uint32 GetHeight() const override { return m_Data.Height; }
 
 		//窗口属性
 		inline void_ SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
-		void_ SetVSync(bool4 enabled) override;
-		bool4 IsVSync() const override;
+		void_ SetVSync(bool8 enabled) override;
+		bool8 IsVSync() const override;
 		void_* GetNativeWindow() const override { return m_Window; }
 
 	private:
@@ -35,8 +35,8 @@ namespace syc
 		struct WindowData
 		{
 			std::string Title;
-			uint16 Width, Height;
-			bool4 VSync;
+			uint32 Width, Height;
+			bool8 VSync;
 
 			EventCallbackFn EventCallback;
 		};

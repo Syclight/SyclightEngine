@@ -18,7 +18,7 @@ namespace syc
 	void_ OpenGLContext::Init()
 	{
 		glfwMakeContextCurrent(m_WindowHandle);
-		int16 status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		int32 status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		SYC_CORE_ASSERT(status, "Failed to initailize Glad");
 
 		SYC_CORE_INFO("OpenGL Info:");

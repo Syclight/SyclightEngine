@@ -68,7 +68,7 @@ namespace syc
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
-		//float16 fontSize = 18.0f;// *2.0f;
+		//float32 fontSize = 18.0f;// *2.0f;
 		//io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Bold.ttf", fontSize);
 		//io.FontDefault = io.Fonts->AddFontFromFileTTF("assets/fonts/opensans/OpenSans-Regular.ttf", fontSize);
 
@@ -103,7 +103,7 @@ namespace syc
 
 	void_ ImGuiLayer::OnImGuiRender()
 	{
-		static bool4 show = true;
+		static bool8 show = true;
 		ImGui::ShowDemoWindow(&show);
 	}
 
@@ -113,14 +113,14 @@ namespace syc
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
-		float16 time = (float16)glfwGetTime();
+		float32 time = (float32)glfwGetTime();
 		io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
 		m_Time = time;
 
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui::NewFrame();
 
-		static bool4 show = true;
+		static bool8 show = true;
 		ImGui::ShowDemoWindow(&show);
 
 		ImGui::Render();
@@ -151,93 +151,4 @@ namespace syc
 			glfwMakeContextCurrent(backup_current_context);
 		}
 	}
-
-	/*void_ ImGuiLayer::OnEvent(Event& event)
-	{
-		EventDispatcher dispatchar(event);
-		dispatchar.Dispatch<MouseButtonPressedEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
-		dispatchar.Dispatch<MouseButtonReleasedEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
-		dispatchar.Dispatch<MouseMovedEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
-		dispatchar.Dispatch<MouseScrolledEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
-		dispatchar.Dispatch<KeyPressedEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
-		dispatchar.Dispatch<KeyReleasedEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
-		dispatchar.Dispatch<KeyTypedEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
-		dispatchar.Dispatch<WindowResizeEvent>(SYC_BIND_EVENT_FN(ImGuiLayer::OnWindowResizedEvent));
-
-	}
-
-	bool4 ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.GetButton()] = true;
-
-		return false;
-	}
-
-	bool4 ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseDown[e.GetButton()] = false;
-
-		return false;
-	}
-
-	bool4 ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MousePos = ImVec2(e.GetX(), e.GetY());
-
-		return false;
-	}
-
-	bool4 ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.MouseWheelH += e.GetXOffset();
-		io.MouseWheel += e.GetYOffset();
-
-		return false;
-	}
-
-	bool4 ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.KeysDown[e.GetKeyCode()] = true;
-
-		io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] || io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
-		io.KeyAlt = io.KeysDown[GLFW_KEY_LEFT_ALT] || io.KeysDown[GLFW_KEY_RIGHT_ALT];
-		io.KeyShift = io.KeysDown[GLFW_KEY_LEFT_SHIFT] || io.KeysDown[GLFW_KEY_RIGHT_SHIFT];
-		io.KeySuper = io.KeysDown[GLFW_KEY_LEFT_SUPER] || io.KeysDown[GLFW_KEY_RIGHT_SUPER];
-		return false;
-	}
-
-	bool4 ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.KeysDown[e.GetKeyCode()] = false;
-
-		return false;
-	}
-
-	bool4 ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		int16 keycode = e.GetKeyCode();
-		if (keycode > 0 && keycode < 0x10000)
-		{
-			io.AddInputCharacter((uint4)keycode);
-		}
-
-		return false;
-	}
-
-	bool4 ImGuiLayer::OnWindowResizedEvent(WindowResizeEvent& e)
-	{
-		ImGuiIO& io = ImGui::GetIO();
-		io.DisplaySize = ImVec2(e.GetWidth(), e.GetHeight());
-		io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-		glViewport(0, 0, e.GetWidth(), e.GetHeight());
-
-		return false;
-	}*/
 }

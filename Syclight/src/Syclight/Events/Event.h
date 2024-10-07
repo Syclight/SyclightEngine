@@ -26,8 +26,8 @@ namespace syc {
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
 		virtual EventType GetEventType() const override { return GetStaticType(); }\
-		virtual const char4* GetName() const override { return #type; }
-#define EVENT_CLASS_CATEGORY(category) virtual int16 GetCategoryFlags() const override { return category; }
+		virtual const char8* GetName() const override { return #type; }
+#define EVENT_CLASS_CATEGORY(category) virtual int32 GetCategoryFlags() const override { return category; }
 
 	class SYC_API Event
 	{
@@ -37,8 +37,8 @@ namespace syc {
 		virtual ~Event() = default;
 
 		virtual EventType GetEventType() const = 0;
-		virtual const char4* GetName() const = 0;
-		virtual int16 GetCategoryFlags() const = 0;
+		virtual const char8* GetName() const = 0;
+		virtual int32 GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 		
 		inline bool IsInCategory(EventCategory category)
@@ -46,7 +46,7 @@ namespace syc {
 			return GetCategoryFlags() & category;
 		}
 	public:
-		bool4 Handled = false;
+		bool8 Handled = false;
 	};
 
 	class EventDispatcher
@@ -60,7 +60,7 @@ namespace syc {
 		}
 
 		template<typename T>
-		bool4 Dispatch(EventFn<T> func)
+		bool8 Dispatch(EventFn<T> func)
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{

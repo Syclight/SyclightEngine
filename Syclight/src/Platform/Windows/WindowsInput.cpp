@@ -8,14 +8,14 @@ namespace syc
 {
 	Input* Input::s_Instance = new WindowsInput();
 
-	bool4 WindowsInput::IsKeyPressedImpl(int16 keycode)
+	bool8 WindowsInput::IsKeyPressedImpl(int32 keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, keycode);
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	bool4 WindowsInput::IsMouseButtonImpl(int16 button)
+	bool8 WindowsInput::IsMouseButtonImpl(int32 button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, button);
@@ -25,18 +25,18 @@ namespace syc
 	Pos2d WindowsInput::GetMousePositionImpl()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
-		float32 xpos, ypos;
+		float64 xpos, ypos;
 		glfwGetCursorPos(window, &xpos, &ypos);
-		return { (float16)xpos, (float16)ypos };
+		return { (float32)xpos, (float32)ypos };
 	}
 
-	float16 WindowsInput::GetMouseXImpl()
+	float32 WindowsInput::GetMouseXImpl()
 	{
 		auto [x, y] = GetMousePositionImpl();
 		return x;
 	}
 
-	float16 WindowsInput::GetMouseYImpl()
+	float32 WindowsInput::GetMouseYImpl()
 	{
 		auto [x, y] = GetMousePositionImpl();
 		return y;

@@ -1,7 +1,7 @@
-﻿###dirs
+###dirs
 .vs/
 bin/
-bin_int/
+bin-int/
 
 #spdlog-v1 dirs 
 Syclight/3rd_party_libs/spdlog-v1.x/bench/
