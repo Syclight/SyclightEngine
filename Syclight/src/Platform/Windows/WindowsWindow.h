@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Syclight/Window.h"
+#include "Syclight/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>
-//struct GLFWwindow;
 
 namespace syc
 {
@@ -27,8 +27,10 @@ namespace syc
 	private:
 		virtual void_ Init(const WindowProps& props);
 		virtual void_ Shutdown();
+
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

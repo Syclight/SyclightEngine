@@ -28,7 +28,6 @@ project "Syclight"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
-	-- staticruntime "Off"
 	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
