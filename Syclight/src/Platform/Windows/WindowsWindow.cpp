@@ -1,7 +1,6 @@
 #include "sycpch.h"
 #include "WindowsWindow.h"
 
-#include "Syclight/Log.h"
 #include "Syclight/Events/ApplicationEvent.h"
 #include "Syclight/Events/KeyEvent.h"
 #include "Syclight/Events/MouseEvent.h"

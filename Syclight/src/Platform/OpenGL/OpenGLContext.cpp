@@ -1,8 +1,6 @@
 #include "sycpch.h"
 #include "OpenGLContext.h"
 
-#include "Syclight/Log.h"
-
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
