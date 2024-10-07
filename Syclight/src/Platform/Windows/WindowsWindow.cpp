@@ -6,8 +6,7 @@
 #include "Syclight/Events/KeyEvent.h"
 #include "Syclight/Events/MouseEvent.h"
 
-
-#include <glad/glad.h>
+#include "Platform/OpenGL/OpenGLContext.h"
 
 namespace syc
 {
@@ -52,10 +51,9 @@ namespace syc
 		}
 
 		m_Window = glfwCreateWindow((int16)m_Data.Width, (int16)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-
-		int16 status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		SYC_CORE_ASSERT(status, "Failed to initailize Glad");
+		
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
 		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
@@ -159,7 +157,7 @@ namespace syc
 	void_ WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void_ WindowsWindow::SetVSync(bool4 enabled)
