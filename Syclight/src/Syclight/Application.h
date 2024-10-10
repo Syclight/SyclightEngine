@@ -11,6 +11,7 @@
 #include "Syclight/ImGui/ImGuiLayer.h"
 
 #include "Syclight/Renderer/Shader.h"
+#include "Syclight/Renderer/Buffer.h"
 
 namespace syc
 {
@@ -22,8 +23,10 @@ namespace syc
 		bool8 m_Running = true;
 		LayerStack m_LayerStack;
 
-		uint32 m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		uint32 m_VertexArray;
 		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 
 		static Application* s_Instance;
 
