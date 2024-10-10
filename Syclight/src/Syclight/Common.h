@@ -9,6 +9,7 @@ namespace syc
 {
 
 	typedef void                 void_;
+	typedef size_t               size1d;
 
 	typedef unsigned char        byte;
 	typedef bool                 bool8;
