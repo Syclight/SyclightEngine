@@ -15,8 +15,12 @@ namespace syc
 		virtual void_ Bind() const override;
 		virtual void_ Unbind() const override;
 
+		virtual const BufferLayout& GetLayout() const override { return m_Layout; }
+		virtual void_ SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+
 	private:
 		uint32 m_RendererID;
+		BufferLayout m_Layout;
 	};
 
 	class SYC_API OpenGLIndexBuffer : public IndexBuffer
