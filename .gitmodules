@@ -1,9 +1,9 @@
-[submodule "Syclight/vendor/imgui"]
-	path = Syclight/vendor/imgui
-	url = https://github.com/ocornut/imgui.git
 [submodule "Syclight/vendor/glm"]
 	path = Syclight/vendor/glm
 	url = https://github.com/g-truc/glm
+[submodule "Syclight/vendor/imgui"]
+	path = Syclight/vendor/imgui
+	url = https://github.com/Syclight/imgui.git
 [submodule "Syclight/vendor/GLFW"]
 	path = Syclight/vendor/GLFW
-	url = https://github.com/glfw/glfw
+	url = https://github.com/Syclight/glfw.git
