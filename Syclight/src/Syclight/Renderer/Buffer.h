@@ -4,23 +4,16 @@
 
 namespace syc
 {
-	enum class ShaderDataType
+	enum class SYC_API ShaderDataType
 	{
 		None = 0, 
-		Float,
-		Float2,
-		Float3,
-		Float4,
-		Mat3,
-		Mat4,
-		Int,
-		Int2,
-		Int3,
-		Int4,
+		Float, Float2, Float3, Float4,
+		Mat3, Mat4,
+		Int, Int2, Int3, Int4,
 		Bool
 	};
 
-	static uint32 ShaderDataTypeSize(ShaderDataType type)
+	static SYC_API uint32 ShaderDataTypeSize(ShaderDataType type)
 	{
 		switch (type)
 		{
@@ -52,7 +45,7 @@ namespace syc
 		}
 	}
 
-	struct BufferElement 
+	struct  SYC_API BufferElement
 	{
 		std::string Name;
 		ShaderDataType Type;
@@ -100,7 +93,7 @@ namespace syc
 		}
 	};
 
-	class BufferLayout
+	class SYC_API BufferLayout
 	{
 	public:
 		BufferLayout() {}
@@ -112,7 +105,7 @@ namespace syc
 		}
 
 		inline uint32 GetStride() const { return m_Stride; }
-		inline const std::vector<BufferElement>& GetElements() { return m_Elements; }
+		inline const std::vector<BufferElement>& GetElements() const { return m_Elements; }
 
 		std::vector<BufferElement>::iterator begin() { return m_Elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return m_Elements.end(); }
