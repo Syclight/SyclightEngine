@@ -4,3 +4,6 @@
 [submodule "Syclight/vendor/GLFW"]
 	path = Syclight/vendor/GLFW
 	url = https://github.com/Syclight/glfw.git
+[submodule "Syclight/vendor/glm"]
+	path = Syclight/vendor/glm
+	url = https://github.com/g-truc/glm.git
