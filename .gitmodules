@@ -1,6 +1,3 @@
-[submodule "Syclight/vendor/imgui"]
-	path = Syclight/vendor/imgui
-	url = https://github.com/ocornut/imgui.git
 [submodule "Syclight/vendor/glm"]
 	path = Syclight/vendor/glm
 	url = https://github.com/g-truc/glm
