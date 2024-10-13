@@ -4,3 +4,6 @@
 [submodule "Syclight/vendor/imgui"]
 	path = Syclight/vendor/imgui
 	url = https://github.com/Syclight/imgui.git
+[submodule "Syclight/vendor/GLFW"]
+	path = Syclight/vendor/GLFW
+	url = https://github.com/Syclight/glfw.git
