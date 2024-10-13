@@ -1,23 +1,19 @@
 #pragma once
 
+#include "RenderCommand.h"
+
 namespace syc
 {
-	enum class SYC_API RendererAPI
-	{
-		None = 0,
-		OpenGL = 1
-	};
-
 	class SYC_API Renderer
 	{
 	public:
-		inline static RendererAPI GetAPI() { return s_RendererAPI; }
+		static void_ BeginScene();
+		static void_ EndScene();
 
-	private:
-		static RendererAPI s_RendererAPI;
+		static void_ Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
-
-	
 }
 
 
