@@ -3,9 +3,11 @@
 
 namespace syc
 {
-	void_ Renderer::BeginScene()
+	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+
+	void_ Renderer::BeginScene(OrthographicCamera& camera)
 	{
-		return void_();
+		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
 	void_ Renderer::EndScene()
@@ -13,8 +15,11 @@ namespace syc
 		return void_();
 	}
 
-	void_ Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray)
+	void_ Renderer::Submit(std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray)
 	{
+		shader->Bind();
+		shader->UploadUniforMat4("u_ViewProjection", m_SceneData->ViewProjectionMatrix);
+
 		vertexArray->Bind();
 		RenderCommand::DrawIndexed(vertexArray);
 	}
