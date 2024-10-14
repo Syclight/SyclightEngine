@@ -10,11 +10,6 @@
 
 #include "Syclight/ImGui/ImGuiLayer.h"
 
-#include "Syclight/Renderer/Shader.h"
-#include "Syclight/Renderer/VertexArray.h"
-#include "Syclight/Renderer/Buffer.h"
-#include "Syclight/Renderer/OrthographicCamera.h"
-
 namespace syc
 {
 	class SYC_API Application
@@ -24,14 +19,6 @@ namespace syc
 		ImGuiLayer* m_ImGuiLayer = nullptr;
 		bool8 m_Running = true;
 		LayerStack m_LayerStack;
-
-		std::shared_ptr<VertexArray> m_VertexArray;
-		std::shared_ptr<Shader> m_Shader;
-		
-		std::shared_ptr<VertexArray> m_SquareVA;
-		std::shared_ptr<Shader> m_SquareShader;
-
-		OrthographicCamera m_Camera;
 
 		static Application* s_Instance;
 	private:
