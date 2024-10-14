@@ -13,6 +13,7 @@
 #include "Syclight/Renderer/Shader.h"
 #include "Syclight/Renderer/VertexArray.h"
 #include "Syclight/Renderer/Buffer.h"
+#include "Syclight/Renderer/OrthographicCamera.h"
 
 namespace syc
 {
@@ -30,8 +31,9 @@ namespace syc
 		std::shared_ptr<VertexArray> m_SquareVA;
 		std::shared_ptr<Shader> m_SquareShader;
 
-		static Application* s_Instance;
+		OrthographicCamera m_Camera;
 
+		static Application* s_Instance;
 	private:
 		bool8 OnWindowClose(WindowCloseEvent& e);
 
