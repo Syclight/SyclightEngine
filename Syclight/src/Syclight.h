@@ -20,8 +20,19 @@
 
 #include "Syclight/ImGui/ImGuiLayer.h"
 
-//---EntryPort--------------------------------------bg---
+//---Renderer--------------------------------------------
+#include "Syclight/Renderer/Renderer.h"
+#include "Syclight/Renderer/RenderCommand.h"
+
+#include "Syclight/Renderer/Buffer.h"
+#include "Syclight/Renderer/Shader.h"
+#include "Syclight/Renderer/VertexArray.h"
+
+#include "Syclight/Renderer/OrthographicCamera.h"
+//-------------------------------------------------------
+
+//---EntryPort-------------------------------------------
 #include "Syclight/EntryPoint.h"
-//---EntryPort--------------------------------------ed---
+//---EntryPort-------------------------------------------
 
 #endif // !__SYC_SYCLIGHT_H__
