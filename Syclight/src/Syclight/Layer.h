@@ -3,6 +3,7 @@
 #include "Syclight/Core.h"
 #include "Syclight/Common.h"
 #include "Syclight/Events/Event.h"
+#include "Syclight/Core/Timestep.h"
 
 namespace syc
 {
@@ -17,7 +18,7 @@ namespace syc
 
 		virtual void_ OnAttach() {}
 		virtual void_ OnDetach() {}
-		virtual void_ OnUpdate() {}
+		virtual void_ OnUpdate(Timestep timestep) {}
 		virtual void_ OnImGuiRender() {}
 		virtual void_ OnEvent(Event& event) {}
 

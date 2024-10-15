@@ -7,6 +7,7 @@
 #include "Syclight/Events/Event.h"
 #include "Syclight/Events/ApplicationEvent.h"
 
+#include "Syclight/Core/Timestep.h"
 
 #include "Syclight/ImGui/ImGuiLayer.h"
 
@@ -14,16 +15,6 @@ namespace syc
 {
 	class SYC_API Application
 	{
-	private:
-		std::unique_ptr<SycWindow> m_Window;
-		ImGuiLayer* m_ImGuiLayer = nullptr;
-		bool8 m_Running = true;
-		LayerStack m_LayerStack;
-
-		static Application* s_Instance;
-	private:
-		bool8 OnWindowClose(WindowCloseEvent& e);
-
 	public:
 		Application();
 		~Application();
@@ -38,6 +29,19 @@ namespace syc
 
 		inline static Application& Get() { return *s_Instance; }
 		inline SycWindow& GetWindow() { return *m_Window; }
+
+	private:
+		bool8 OnWindowClose(WindowCloseEvent& e);
+
+	private:
+		std::unique_ptr<SycWindow> m_Window;
+		ImGuiLayer* m_ImGuiLayer = nullptr;
+		bool8 m_Running = true;
+		LayerStack m_LayerStack;
+		float32 m_LastFrameTime = 0.0f;
+
+	private:
+		static Application* s_Instance;
 	};
 
 	// 客户端API

@@ -5,6 +5,8 @@
 
 #include "Input.h"
 
+#include <GLFW/glfw3.h>
+
 namespace syc
 {
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -17,6 +19,7 @@ namespace syc
 		s_Instance = this;
 		m_Window = std::unique_ptr<SycWindow>(SycWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetVSync(false);
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
@@ -35,9 +38,13 @@ namespace syc
 	{
 		while (m_Running)
 		{
+			float32 time = (float32)glfwGetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 			}
 
 			m_ImGuiLayer->Begin();

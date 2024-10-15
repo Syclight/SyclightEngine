@@ -14,6 +14,8 @@
 #include "Syclight/Layer.h"
 #include "Syclight/Log.h"
 
+#include "Syclight/Core/Timestep.h"
+
 #include "Syclight/Input.h"
 #include "Syclight/KeyCodes.h"
 #include "Syclight/MouseButtonCodes.h"
@@ -33,6 +35,12 @@
 
 //---EntryPort-------------------------------------------
 #include "Syclight/EntryPoint.h"
-//---EntryPort-------------------------------------------
+//-------------------------------------------------------
 
+
+//---宏定义-----------------------------------------------
+#define   int32t       syc::int32
+#define   float32t     syc::float32
+
+//-------------------------------------------------------
 #endif // !__SYC_SYCLIGHT_H__
