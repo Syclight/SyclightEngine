@@ -2,6 +2,8 @@
 
 #include "imgui/imgui.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
 class ExampleLayer : public syc::Layer
 {
 public:
@@ -12,7 +14,7 @@ public:
 	{
 		m_VertexArray.reset(syc::VertexArray::Create());
 
-		float32t vertices[3 * 7] = {
+		Float32 vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
@@ -36,11 +38,11 @@ public:
 
 		m_SquareVA.reset(syc::VertexArray::Create());
 
-		float32t squareVertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f
+		Float32 squareVertices[3 * 4] = {
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f
 		};
 
 		std::shared_ptr<syc::VertexBuffer> SquareVB;
@@ -63,6 +65,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -71,7 +74,7 @@ public:
 			{
 				v_Position = a_Position;
                 v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -97,13 +100,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
             uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform *vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -152,6 +156,24 @@ public:
 			m_CameraRotation -= m_CameraRotationSpeed * timestep;
 		}
 
+		/*if (syc::Input::IsKeyPressed(SYC_KEY_J))
+		{
+			m_SquarePosition.x -= m_SquareMoveSpeed * timestep;
+		}
+		else if (syc::Input::IsKeyPressed(SYC_KEY_L))
+		{
+			m_SquarePosition.x += m_SquareMoveSpeed * timestep;
+		}
+
+		if (syc::Input::IsKeyPressed(SYC_KEY_I))
+		{
+			m_SquarePosition.y += m_SquareMoveSpeed * timestep;
+		}
+		else if (syc::Input::IsKeyPressed(SYC_KEY_K))
+		{
+			m_SquarePosition.y -= m_SquareMoveSpeed * timestep;
+		}*/
+
 		syc::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1);
 		syc::RenderCommand::Clear();
 
@@ -160,7 +182,19 @@ public:
 
 		syc::Renderer::BeginScene(m_Camera);
 
-		syc::Renderer::Submit(m_SquareShader, m_SquareVA);
+		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		for (Uint32 y = 0; y < 20; y++)
+		{
+			for (Uint32 x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				syc::Renderer::Submit(m_SquareShader, m_SquareVA, transform);
+			}
+		}
+
 		syc::Renderer::Submit(m_Shader, m_VertexArray);
 
 		syc::Renderer::EndScene();
@@ -195,10 +229,13 @@ private:
 
 	syc::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 5.0f;
+	Float32 m_CameraMoveSpeed = 5.0f;
 
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 180.0f;
+	Float32 m_CameraRotation = 0.0f;
+	Float32 m_CameraRotationSpeed = 180.0f;
+
+	/*glm::vec3 m_SquarePosition{};
+	Float32 m_SquareMoveSpeed = 1.0f;*/
 };
 
 class Sandbox : public syc::Application
