@@ -12,7 +12,7 @@ public:
 	{
 		m_VertexArray.reset(syc::VertexArray::Create());
 
-		syc::float32 vertices[3 * 7] = {
+		float32t vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
@@ -36,7 +36,7 @@ public:
 
 		m_SquareVA.reset(syc::VertexArray::Create());
 
-		syc::float32 squareVertices[3 * 4] = {
+		float32t squareVertices[3 * 4] = {
 			-0.75f, -0.75f, 0.0f,
 			 0.75f, -0.75f, 0.0f,
 			 0.75f,  0.75f, 0.0f,
@@ -122,33 +122,34 @@ public:
 		m_SquareShader.reset(new syc::Shader(vertexShader2, fragmentShader2));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(syc::Timestep timestep) override
 	{
+
 		if (syc::Input::IsKeyPressed(SYC_KEY_LEFT))
 		{
-			m_CameraPosition.x -= m_CameraMoveSpeed;
+			m_CameraPosition.x -= m_CameraMoveSpeed * timestep;
 		}
 		else if (syc::Input::IsKeyPressed(SYC_KEY_RIGHT))
 		{
-			m_CameraPosition.x += m_CameraMoveSpeed;
+			m_CameraPosition.x += m_CameraMoveSpeed * timestep;
 		}
 
 		if (syc::Input::IsKeyPressed(SYC_KEY_UP))
 		{
-			m_CameraPosition.y += m_CameraMoveSpeed;
+			m_CameraPosition.y += m_CameraMoveSpeed * timestep;
 		}
 		else if (syc::Input::IsKeyPressed(SYC_KEY_DOWN))
 		{
-			m_CameraPosition.y -= m_CameraMoveSpeed;
+			m_CameraPosition.y -= m_CameraMoveSpeed * timestep;
 		}
 
 		if (syc::Input::IsKeyPressed(SYC_KEY_A))
 		{
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * timestep;
 		}
 		if (syc::Input::IsKeyPressed(SYC_KEY_D))
 		{
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * timestep;
 		}
 
 		syc::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1);
@@ -194,10 +195,10 @@ private:
 
 	syc::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 0.1f;
+	float m_CameraMoveSpeed = 5.0f;
 
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 2.0f;
+	float m_CameraRotationSpeed = 180.0f;
 };
 
 class Sandbox : public syc::Application
