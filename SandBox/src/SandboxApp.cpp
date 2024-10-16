@@ -1,8 +1,11 @@
-#include <Syclight.h>
+#include "Syclight.h"
+#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 class ExampleLayer : public syc::Layer
 {
@@ -92,7 +95,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new syc::Shader(vertexShader, fragmentShader));
+		m_Shader.reset(syc::Shader::Create(vertexShader, fragmentShader));
 
 		std::string vertexShader2 = R"(
 			#version 330 core
@@ -116,14 +119,17 @@ public:
 
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;			
+			in vec3 v_Position;
+            uniform vec3 u_Color;
+
+            uniform vec3 u_lightDir;			
 
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color, 1.0f);
 			}
 		)";
-		m_SquareShader.reset(new syc::Shader(vertexShader2, fragmentShader2));
+		m_SquareShader.reset(syc::Shader::Create(vertexShader2, fragmentShader2));
 	}
 
 	void OnUpdate(syc::Timestep timestep) override
@@ -185,6 +191,15 @@ public:
 		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_SquareShader)->Bind();
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_SquareShader)->UploadUniforFloat3("u_Color", m_SquareColor);
+
+		/*syc::MaterialRef material = new syc::Material(m_SquareShader);
+		syc::MaterialInstanceRef mi = new syc::MaterialInstanceRef(material);
+
+		mi->Set("u_Color", red);
+		squareMesh->SetMaterial(mi);*/
+
 		for (Uint32 y = 0; y < 20; y++)
 		{
 			for (Uint32 x = 0; x < 20; x++)
@@ -202,8 +217,8 @@ public:
 
 	void OnImGuiRender() override
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hi! This is Syclight Engine.");
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Solor", glm::value_ptr(m_SquareColor));
 		ImGui::End();
 	}
 
@@ -233,6 +248,8 @@ private:
 
 	Float32 m_CameraRotation = 0.0f;
 	Float32 m_CameraRotationSpeed = 180.0f;
+
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 	/*glm::vec3 m_SquarePosition{};
 	Float32 m_SquareMoveSpeed = 1.0f;*/
