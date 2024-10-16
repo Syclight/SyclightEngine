@@ -13,16 +13,16 @@ namespace syc
 		virtual void_ Bind() const override;
 		virtual void_ Unbind() const override;
 
-		virtual void_ AddVerrtexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) override;
-		virtual void_ SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) override;
+		virtual void_ AddVerrtexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+		virtual void_ SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
-		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
-		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffers() const override { return m_IndexBuffer; };
+		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
+		virtual const Ref<IndexBuffer>& GetIndexBuffers() const override { return m_IndexBuffer; };
 
 	private:
 		uint32 m_RendererID;
-		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
+		Ref<IndexBuffer> m_IndexBuffer;
 	};
 }
 

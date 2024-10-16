@@ -22,7 +22,7 @@ namespace syc
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
 
-	Pos2d WindowsInput::GetMousePositionImpl()
+	std::pair<float32, float32> WindowsInput::GetMousePositionImpl()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		float64 xpos, ypos;

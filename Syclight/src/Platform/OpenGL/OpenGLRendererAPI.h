@@ -10,7 +10,7 @@ namespace syc
 		virtual void_ SetClearColor(const glm::vec4& color) override;
 		virtual void_ Clear() override;
 
-		virtual void_ DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) override;
+		virtual void_ DrawIndexed(const Ref<VertexArray>& vertexArray) override;
 	};
 }
 

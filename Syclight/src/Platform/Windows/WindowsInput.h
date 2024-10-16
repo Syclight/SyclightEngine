@@ -9,7 +9,7 @@ namespace syc
 	protected:
 		virtual bool8 IsKeyPressedImpl(int32 keycode) override;
 		virtual bool8 IsMouseButtonImpl(int32 button) override;
-		virtual Pos2d GetMousePositionImpl() override;
+		virtual std::pair<float32, float32> GetMousePositionImpl() override;
 		virtual float32 GetMouseXImpl() override;
 		virtual float32 GetMouseYImpl() override;
 

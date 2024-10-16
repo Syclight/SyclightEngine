@@ -4,8 +4,8 @@
 #include "spdlog/sinks/stdout_color_sinks.h"
 namespace syc
 {
-	std::shared_ptr<spdlog::logger> Log::s_engine_logger;
-	std::shared_ptr<spdlog::logger> Log::s_client_logger;
+	Ref<spdlog::logger> Log::s_engine_logger;
+	Ref<spdlog::logger> Log::s_client_logger;
 
 	void_ Log::Init()
 	{

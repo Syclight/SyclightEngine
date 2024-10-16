@@ -1,8 +1,11 @@
-#include <Syclight.h>
+#include "Syclight.h"
+#include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 class ExampleLayer : public syc::Layer
 {
@@ -20,7 +23,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<syc::VertexBuffer> vertexBuffer;
+		syc::Ref<syc::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(syc::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		syc::BufferLayout layout = {
@@ -32,29 +35,30 @@ public:
 		m_VertexArray->AddVerrtexBuffer(vertexBuffer);
 
 		syc::uint32 indices[3] = { 0, 1, 2 };
-		std::shared_ptr<syc::IndexBuffer> indexBuffer;
+		syc::Ref<syc::IndexBuffer> indexBuffer;
 		indexBuffer.reset(syc::IndexBuffer::Create(indices, sizeof(indices) / sizeof(syc::uint32)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA.reset(syc::VertexArray::Create());
 
-		Float32 squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		Float32 squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		std::shared_ptr<syc::VertexBuffer> SquareVB;
+		syc::Ref<syc::VertexBuffer> SquareVB;
 		SquareVB.reset(syc::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		syc::BufferLayout SquareLayout = {
-			{ syc::ShaderDataType::Float3, "a_Position" }
+			{ syc::ShaderDataType::Float3, "a_Position" },
+			{ syc::ShaderDataType::Float2, "a_TexCoord" }
 		};
 		SquareVB->SetLayout(SquareLayout);
 		m_SquareVA->AddVerrtexBuffer(SquareVB);
 
 		syc::uint32 SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<syc::IndexBuffer> SquareIB;
+		syc::Ref<syc::IndexBuffer> SquareIB;
 		SquareIB.reset(syc::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices) / sizeof(syc::uint32)));
 		m_SquareVA->SetIndexBuffer(SquareIB);
 
@@ -92,7 +96,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(new syc::Shader(vertexShader, fragmentShader));
+		m_Shader.reset(syc::Shader::Create(vertexShader, fragmentShader));
 
 		std::string vertexShader2 = R"(
 			#version 330 core
@@ -116,14 +120,56 @@ public:
 
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_Position;			
+			in vec3 v_Position;
+            uniform vec3 u_Color;
+
+            uniform vec3 u_lightDir;			
 
 			void main()
 			{
-				color = vec4(0.2, 0.3, 0.8, 1.0);
+				color = vec4(u_Color, 1.0f);
 			}
 		)";
-		m_SquareShader.reset(new syc::Shader(vertexShader2, fragmentShader2));
+		m_SquareShader.reset(syc::Shader::Create(vertexShader2, fragmentShader2));
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 0) in vec2 a_TexCoord;
+
+            uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+			
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform *vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+            uniform sampler2D u_Texture;	
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+		m_TextureShader.reset(syc::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = syc::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_TextureShader)->UploadUniforInt("m_TextureShader", 0);
 	}
 
 	void OnUpdate(syc::Timestep timestep) override
@@ -185,6 +231,15 @@ public:
 		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_SquareShader)->Bind();
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_SquareShader)->UploadUniforFloat3("u_Color", m_SquareColor);
+
+		/*syc::MaterialRef material = new syc::Material(m_SquareShader);
+		syc::MaterialInstanceRef mi = new syc::MaterialInstanceRef(material);
+
+		mi->Set("u_Color", red);
+		squareMesh->SetMaterial(mi);*/
+
 		for (Uint32 y = 0; y < 20; y++)
 		{
 			for (Uint32 x = 0; x < 20; x++)
@@ -195,15 +250,19 @@ public:
 			}
 		}
 
-		syc::Renderer::Submit(m_Shader, m_VertexArray);
+		m_Texture->Bind();
+		syc::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
+		// Triangle
+		// syc::Renderer::Submit(m_Shader, m_VertexArray);
 
 		syc::Renderer::EndScene();
 	}
 
 	void OnImGuiRender() override
 	{
-		ImGui::Begin("Test");
-		ImGui::Text("Hi! This is Syclight Engine.");
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Solor", glm::value_ptr(m_SquareColor));
 		ImGui::End();
 	}
 
@@ -221,11 +280,13 @@ public:
 	}*/
 
 private:
-	std::shared_ptr<syc::VertexArray> m_VertexArray;
-	std::shared_ptr<syc::Shader> m_Shader;
+	syc::Ref<syc::Shader> m_Shader;
+	syc::Ref<syc::VertexArray> m_VertexArray;
 
-	std::shared_ptr<syc::VertexArray> m_SquareVA;
-	std::shared_ptr<syc::Shader> m_SquareShader;
+	syc::Ref<syc::Shader> m_SquareShader, m_TextureShader;
+	syc::Ref<syc::VertexArray> m_SquareVA;
+
+	syc::Ref<syc::Texture2D> m_Texture;
 
 	syc::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
@@ -233,6 +294,8 @@ private:
 
 	Float32 m_CameraRotation = 0.0f;
 	Float32 m_CameraRotationSpeed = 180.0f;
+
+	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 
 	/*glm::vec3 m_SquarePosition{};
 	Float32 m_SquareMoveSpeed = 1.0f;*/

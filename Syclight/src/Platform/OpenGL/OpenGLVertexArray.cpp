@@ -45,7 +45,7 @@ namespace syc
 		glBindVertexArray(0);
 	}
 
-	void_ OpenGLVertexArray::AddVerrtexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer)
+	void_ OpenGLVertexArray::AddVerrtexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		SYC_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout! Did you call 'VertexBuffer->SetLayout' before 'VertexArray->AddVerrtexBuffer'?");
 
@@ -69,7 +69,7 @@ namespace syc
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void_ OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer)
+	void_ OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();

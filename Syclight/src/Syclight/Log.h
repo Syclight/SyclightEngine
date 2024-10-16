@@ -18,18 +18,18 @@ namespace syc
 		~Log() = default;
 
 		static void_ Init();
-		inline static std::shared_ptr<spdlog::logger>& GetEngineLogger() 
+		inline static Ref<spdlog::logger>& GetEngineLogger()
 		{
 			return s_engine_logger;
 		};
-		inline static std::shared_ptr<spdlog::logger>& GetClientLogger()
+		inline static Ref<spdlog::logger>& GetClientLogger()
 		{
 			return s_client_logger;
 		};
 
 	private:
-		static std::shared_ptr<spdlog::logger> s_engine_logger;
-		static std::shared_ptr<spdlog::logger> s_client_logger;
+		static Ref<spdlog::logger> s_engine_logger;
+		static Ref<spdlog::logger> s_client_logger;
 	};
 }
 

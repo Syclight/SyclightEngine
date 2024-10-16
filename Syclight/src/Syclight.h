@@ -28,6 +28,7 @@
 
 #include "Syclight/Renderer/Buffer.h"
 #include "Syclight/Renderer/Shader.h"
+#include "Syclight/Renderer/Texture.h"
 #include "Syclight/Renderer/VertexArray.h"
 
 #include "Syclight/Renderer/OrthographicCamera.h"
