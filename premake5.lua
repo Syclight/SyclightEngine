@@ -15,6 +15,7 @@ IncludeDir["GLFW"] = "Syclight/vendor/GLFW/include"
 IncludeDir["Glad"] = "Syclight/vendor/Glad/include"
 IncludeDir["ImGui"] = "Syclight/vendor/imgui"
 IncludeDir["glm"] = "Syclight/vendor/glm"
+IncludeDir["stb_image"] = "Syclight/vendor/stb_image"
 -- IncludeDir["spdlog"] = "Syclight/vendor/spdlog-v1.x/include"
 
 include "Syclight/vendor/GLFW"
@@ -39,6 +40,8 @@ project "Syclight"
 	files {
 		"%{prj.name}/src/**.h", 
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -54,7 +57,8 @@ project "Syclight"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links { 

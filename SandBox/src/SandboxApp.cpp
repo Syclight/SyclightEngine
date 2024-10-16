@@ -41,17 +41,18 @@ public:
 
 		m_SquareVA.reset(syc::VertexArray::Create());
 
-		Float32 squareVertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f
+		Float32 squareVertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
 		syc::Ref<syc::VertexBuffer> SquareVB;
 		SquareVB.reset(syc::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		syc::BufferLayout SquareLayout = {
-			{ syc::ShaderDataType::Float3, "a_Position" }
+			{ syc::ShaderDataType::Float3, "a_Position" },
+			{ syc::ShaderDataType::Float2, "a_TexCoord" }
 		};
 		SquareVB->SetLayout(SquareLayout);
 		m_SquareVA->AddVerrtexBuffer(SquareVB);
@@ -130,6 +131,45 @@ public:
 			}
 		)";
 		m_SquareShader.reset(syc::Shader::Create(vertexShader2, fragmentShader2));
+
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 0) in vec2 a_TexCoord;
+
+            uniform mat4 u_ViewProjection;
+            uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+			
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform *vec4(a_Position, 1.0);
+			}
+		)";
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+            uniform sampler2D u_Texture;	
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+		m_TextureShader.reset(syc::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+
+		m_Texture = syc::Texture2D::Create("assets/textures/Checkerboard.png");
+
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_TextureShader)->UploadUniforInt("m_TextureShader", 0);
 	}
 
 	void OnUpdate(syc::Timestep timestep) override
@@ -210,8 +250,11 @@ public:
 			}
 		}
 
+		m_Texture->Bind();
+		syc::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+
 		// Triangle
-		syc::Renderer::Submit(m_Shader, m_VertexArray);
+		// syc::Renderer::Submit(m_Shader, m_VertexArray);
 
 		syc::Renderer::EndScene();
 	}
@@ -237,11 +280,13 @@ public:
 	}*/
 
 private:
-	syc::Ref<syc::VertexArray> m_VertexArray;
 	syc::Ref<syc::Shader> m_Shader;
+	syc::Ref<syc::VertexArray> m_VertexArray;
 
+	syc::Ref<syc::Shader> m_SquareShader, m_TextureShader;
 	syc::Ref<syc::VertexArray> m_SquareVA;
-	syc::Ref<syc::Shader> m_SquareShader;
+
+	syc::Ref<syc::Texture2D> m_Texture;
 
 	syc::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
