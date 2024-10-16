@@ -15,6 +15,8 @@ namespace syc
 
 		static Shader* Create(const std::string& vertexSrc, const std::string& fragmentSrc);
 	};
+
+	/*using ShaderRef = Ref<Shader>;*/
 }
 
 

@@ -23,7 +23,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<syc::VertexBuffer> vertexBuffer;
+		syc::Ref<syc::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(syc::VertexBuffer::Create(vertices, sizeof(vertices)));
 
 		syc::BufferLayout layout = {
@@ -35,7 +35,7 @@ public:
 		m_VertexArray->AddVerrtexBuffer(vertexBuffer);
 
 		syc::uint32 indices[3] = { 0, 1, 2 };
-		std::shared_ptr<syc::IndexBuffer> indexBuffer;
+		syc::Ref<syc::IndexBuffer> indexBuffer;
 		indexBuffer.reset(syc::IndexBuffer::Create(indices, sizeof(indices) / sizeof(syc::uint32)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -48,7 +48,7 @@ public:
 			-0.5f,  0.5f, 0.0f
 		};
 
-		std::shared_ptr<syc::VertexBuffer> SquareVB;
+		syc::Ref<syc::VertexBuffer> SquareVB;
 		SquareVB.reset(syc::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
 		syc::BufferLayout SquareLayout = {
 			{ syc::ShaderDataType::Float3, "a_Position" }
@@ -57,7 +57,7 @@ public:
 		m_SquareVA->AddVerrtexBuffer(SquareVB);
 
 		syc::uint32 SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<syc::IndexBuffer> SquareIB;
+		syc::Ref<syc::IndexBuffer> SquareIB;
 		SquareIB.reset(syc::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices) / sizeof(syc::uint32)));
 		m_SquareVA->SetIndexBuffer(SquareIB);
 
@@ -210,6 +210,7 @@ public:
 			}
 		}
 
+		// Triangle
 		syc::Renderer::Submit(m_Shader, m_VertexArray);
 
 		syc::Renderer::EndScene();
@@ -236,11 +237,11 @@ public:
 	}*/
 
 private:
-	std::shared_ptr<syc::VertexArray> m_VertexArray;
-	std::shared_ptr<syc::Shader> m_Shader;
+	syc::Ref<syc::VertexArray> m_VertexArray;
+	syc::Ref<syc::Shader> m_Shader;
 
-	std::shared_ptr<syc::VertexArray> m_SquareVA;
-	std::shared_ptr<syc::Shader> m_SquareShader;
+	syc::Ref<syc::VertexArray> m_SquareVA;
+	syc::Ref<syc::Shader> m_SquareShader;
 
 	syc::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
