@@ -7,6 +7,11 @@ namespace syc
 {
 	Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
 
+	void_ Renderer::Init()
+	{
+		RenderCommand::Init();
+	}
+
 	void_ Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();

@@ -1,7 +1,7 @@
 #include "sycpch.h"
 #include "Application.h"
 
-#include <iostream>
+#include "Syclight/Renderer/Renderer.h"
 
 #include "Input.h"
 
@@ -19,7 +19,9 @@ namespace syc
 		s_Instance = this;
 		m_Window = std::unique_ptr<SycWindow>(SycWindow::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
-		m_Window->SetVSync(false);
+		//m_Window->SetVSync(false);
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

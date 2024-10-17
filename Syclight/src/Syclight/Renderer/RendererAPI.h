@@ -16,6 +16,7 @@ namespace syc
 		};
 
 	public:
+		virtual void_ Init() = 0;
 		virtual void_ SetClearColor(const glm::vec4& color) = 0;
 		virtual void_ Clear() = 0;
 

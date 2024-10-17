@@ -7,6 +7,11 @@ namespace syc
 	class SYC_API RenderCommand
 	{
 	public:
+		inline static void_ Init()
+		{
+			s_RendererAPI->Init();
+		}
+
 		inline static void_ SetClearColor(float32 r, float32 g, float32 b, float32 a=1.0f)
 		{
 			s_RendererAPI->SetClearColor({ r, g, b, a });
