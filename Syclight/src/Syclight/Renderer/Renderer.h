@@ -10,6 +10,8 @@ namespace syc
 	class SYC_API Renderer
 	{
 	public:
+		static void_ Init();
+
 		static void_ BeginScene(OrthographicCamera& camera);
 		static void_ EndScene();
 
