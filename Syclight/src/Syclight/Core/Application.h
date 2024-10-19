@@ -3,7 +3,7 @@
 #ifndef __SYC_APPLICATION_H__
 
 #include "Window.h"
-#include "Syclight/LayerStack.h"
+#include "Syclight/Core/LayerStack.h"
 #include "Syclight/Events/Event.h"
 #include "Syclight/Events/ApplicationEvent.h"
 
