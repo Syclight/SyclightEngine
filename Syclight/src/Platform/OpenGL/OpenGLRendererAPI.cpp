@@ -10,6 +10,12 @@ namespace syc
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
+
+	void_ OpenGLRendererAPI::SetViewport(int32 x, int32 y, int32 width, int32 height)
+	{
+		glViewport(x, y, width, height);
+	}
+
 	void_ OpenGLRendererAPI::SetClearColor(const glm::vec4& color)
 	{
 		glClearColor(color.r, color.g, color.b, color.a);

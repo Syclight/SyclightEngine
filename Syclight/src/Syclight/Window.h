@@ -12,8 +12,8 @@ namespace syc
 
 		WindowProps(
 			const std::string& title = "Syclight Engine",
-			uint32 width = 1920,
-			uint32 height = 1080)
+			uint32 width = WIND_WIDTH,
+			uint32 height = WIND_HEIGHT)
 			: Title(title), Width(width), Height(height)
 		{}
 	};

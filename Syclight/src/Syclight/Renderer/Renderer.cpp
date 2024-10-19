@@ -12,6 +12,11 @@ namespace syc
 		RenderCommand::Init();
 	}
 
+	void_ Renderer::OnWindowResize(uint32 width, uint32 height)
+	{
+		RenderCommand::SetViewport(0, 0, width, height);
+	}
+
 	void_ Renderer::BeginScene(OrthographicCamera& camera)
 	{
 		m_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();

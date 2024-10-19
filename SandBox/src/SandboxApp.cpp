@@ -6,18 +6,19 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Syclight/Renderer/Shader.h"
+
 
 class ExampleLayer : public syc::Layer
 {
 public:
 	ExampleLayer()
 		: Layer("Example"),
-		m_Camera(-1.6f, 1.6f, -0.9f, 0.9f),
-		m_CameraPosition(0.0f)
+		m_CameraController(16.0f / 9.0f)
 	{
 		m_VertexArray.reset(syc::VertexArray::Create());
 
-		Float32 vertices[3 * 7] = {
+		F32 vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
@@ -41,7 +42,7 @@ public:
 
 		m_SquareVA.reset(syc::VertexArray::Create());
 
-		Float32 squareVertices[5 * 4] = {
+		F32 squareVertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
 			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
@@ -96,7 +97,7 @@ public:
 			}
 		)";
 
-		m_Shader.reset(syc::Shader::Create(vertexShader, fragmentShader));
+		m_Shader = syc::Shader::Create("shader", vertexShader, fragmentShader);
 
 		std::string vertexShader2 = R"(
 			#version 330 core
@@ -130,72 +131,27 @@ public:
 				color = vec4(u_Color, 1.0f);
 			}
 		)";
-		m_SquareShader.reset(syc::Shader::Create(vertexShader2, fragmentShader2));
+		m_SquareShader = syc::Shader::Create("Square", vertexShader2, fragmentShader2);
 
-		m_TextureShader.reset(syc::Shader::Create("assets/shaders/Texture.glsl"));
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = syc::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_NanacoTex = syc::Texture2D::Create("assets/textures/nanaco.png");
 
-		std::dynamic_pointer_cast<syc::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<syc::OpenGLShader>(m_TextureShader)->UploadUniforInt("m_TextureShader", 0);
+		std::dynamic_pointer_cast<syc::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<syc::OpenGLShader>(textureShader)->UploadUniforInt("m_TextureShader", 0);
 	}
 
 	void OnUpdate(syc::Timestep timestep) override
 	{
+		// Update
+		m_CameraController.OnUpdate(timestep);
 
-		if (syc::Input::IsKeyPressed(SYC_KEY_LEFT))
-		{
-			m_CameraPosition.x -= m_CameraMoveSpeed * timestep;
-		}
-		else if (syc::Input::IsKeyPressed(SYC_KEY_RIGHT))
-		{
-			m_CameraPosition.x += m_CameraMoveSpeed * timestep;
-		}
-
-		if (syc::Input::IsKeyPressed(SYC_KEY_UP))
-		{
-			m_CameraPosition.y += m_CameraMoveSpeed * timestep;
-		}
-		else if (syc::Input::IsKeyPressed(SYC_KEY_DOWN))
-		{
-			m_CameraPosition.y -= m_CameraMoveSpeed * timestep;
-		}
-
-		if (syc::Input::IsKeyPressed(SYC_KEY_A))
-		{
-			m_CameraRotation += m_CameraRotationSpeed * timestep;
-		}
-		if (syc::Input::IsKeyPressed(SYC_KEY_D))
-		{
-			m_CameraRotation -= m_CameraRotationSpeed * timestep;
-		}
-
-		/*if (syc::Input::IsKeyPressed(SYC_KEY_J))
-		{
-			m_SquarePosition.x -= m_SquareMoveSpeed * timestep;
-		}
-		else if (syc::Input::IsKeyPressed(SYC_KEY_L))
-		{
-			m_SquarePosition.x += m_SquareMoveSpeed * timestep;
-		}
-
-		if (syc::Input::IsKeyPressed(SYC_KEY_I))
-		{
-			m_SquarePosition.y += m_SquareMoveSpeed * timestep;
-		}
-		else if (syc::Input::IsKeyPressed(SYC_KEY_K))
-		{
-			m_SquarePosition.y -= m_SquareMoveSpeed * timestep;
-		}*/
-
+		// Render
 		syc::RenderCommand::SetClearColor(0.1f, 0.1f, 0.1f, 1);
 		syc::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		syc::Renderer::BeginScene(m_Camera);
+		syc::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
@@ -209,9 +165,9 @@ public:
 		mi->Set("u_Color", red);
 		squareMesh->SetMaterial(mi);*/
 
-		for (Uint32 y = 0; y < 20; y++)
+		for (UI32 y = 0; y < 20; y++)
 		{
-			for (Uint32 x = 0; x < 20; x++)
+			for (UI32 x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
@@ -219,11 +175,13 @@ public:
 			}
 		}
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_Texture->Bind();
-		syc::Renderer::Submit(m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
+		syc::Renderer::Submit(textureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		m_NanacoTex->Bind();
-		syc::Renderer::Submit(m_TextureShader, m_SquareVA, 
+		syc::Renderer::Submit(textureShader, m_SquareVA,
 			glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 
 		// Triangle
@@ -241,8 +199,15 @@ public:
 
 	void OnEvent(syc::Event& e) override
 	{
-		/*syc::EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<syc::KeyPressedEvent>(SYC_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));*/
+		m_CameraController.OnEvent(e);
+
+	/*	if (e.GetEventType() == syc::EventType::WindowResize)
+		{
+			auto& re = (syc::WindowResizeEvent&)e;
+
+			F32 zoom = (F32)re.GetWidth() / WIND_WIDTH;
+			m_CameraController.SetZoomLevel(zoom);
+		}*/
 	}
 
 	/*bool OnKeyPressedEvent(syc::KeyPressedEvent& e)
@@ -253,25 +218,19 @@ public:
 	}*/
 
 private:
+	syc::ShaderLibrary m_ShaderLibrary;
+
 	syc::Ref<syc::Shader> m_Shader;
 	syc::Ref<syc::VertexArray> m_VertexArray;
 
-	syc::Ref<syc::Shader> m_SquareShader, m_TextureShader;
+	syc::Ref<syc::Shader> m_SquareShader;
 	syc::Ref<syc::VertexArray> m_SquareVA;
 
 	syc::Ref<syc::Texture2D> m_Texture, m_NanacoTex;
 
-	syc::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	Float32 m_CameraMoveSpeed = 5.0f;
-
-	Float32 m_CameraRotation = 0.0f;
-	Float32 m_CameraRotationSpeed = 180.0f;
+	syc::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
-
-	/*glm::vec3 m_SquarePosition{};
-	Float32 m_SquareMoveSpeed = 1.0f;*/
 };
 
 class Sandbox : public syc::Application

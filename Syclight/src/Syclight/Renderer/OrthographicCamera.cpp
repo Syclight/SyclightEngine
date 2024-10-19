@@ -11,6 +11,13 @@ namespace syc
 	{
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
+
+	void_ OrthographicCamera::SetProjection(float32 left, float32 right, float32 bottom, float32 top)
+	{
+		m_ProjectionMatrix = glm::ortho(left, right, bottom, top, -1.0f, 1.0f);
+		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
+	}
+
 	void_ OrthographicCamera::RecalculateViewMartix()
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) *

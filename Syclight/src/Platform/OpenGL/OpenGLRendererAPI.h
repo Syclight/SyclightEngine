@@ -8,6 +8,7 @@ namespace syc
 	{
 	public:
 		virtual void_ Init() override;
+		virtual void_ SetViewport(int32 x, int32 y, int32 width, int32 height) override;
 		virtual void_ SetClearColor(const glm::vec4& color) override;
 		virtual void_ Clear() override;
 

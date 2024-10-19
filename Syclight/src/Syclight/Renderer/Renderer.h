@@ -11,6 +11,7 @@ namespace syc
 	{
 	public:
 		static void_ Init();
+		static void_ OnWindowResize(uint32 width, uint32 height);
 
 		static void_ BeginScene(OrthographicCamera& camera);
 		static void_ EndScene();
