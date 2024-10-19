@@ -19,6 +19,7 @@
 #include "Syclight/Input.h"
 #include "Syclight/KeyCodes.h"
 #include "Syclight/MouseButtonCodes.h"
+#include "Syclight/OrthographicCameraController.h"
 
 #include "Syclight/ImGui/ImGuiLayer.h"
 

@@ -12,11 +12,13 @@ namespace syc
 	{
 	public:
 		OpenGLShader(const std::string& filepath);
-		OpenGLShader(const std::string& vertexSrc, const std::string& fragmentSrc);
+		OpenGLShader(const std::string name, const std::string& vertexSrc, const std::string& fragmentSrc);
 		~OpenGLShader();
 
 		virtual void_ Bind() const override;
 		virtual void_ Unbind() const override;
+
+		virtual const std::string& GetName() const override { return m_Name; }
 
 		void_ UploadUniforInt(const std::string& name, int32 values);
 		void_ UploadUniforInt2(const std::string& name, const glm::ivec2& values);
@@ -38,6 +40,7 @@ namespace syc
 
 	private:
 		uint32_t m_RendererID;
+		std::string m_Name;
 	};
 }
 

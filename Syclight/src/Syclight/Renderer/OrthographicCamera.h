@@ -1,6 +1,4 @@
 #pragma once
-
-#include "Syclight/Common.h"
 #include <glm/glm.hpp>
 
 
@@ -10,7 +8,7 @@ namespace syc
 	{
 	public:
 		OrthographicCamera(float32 left, float32 right, float32 bottom, float32 top);
-
+		void_ SetProjection(float32 left, float32 right, float32 bottom, float32 top);
 
 		const glm::vec3 GetPosition() const { return m_Position; }
 		void_ SetPosition(float32 x, float32 y, float32 z) { SetPosition({ x, y, z }); }

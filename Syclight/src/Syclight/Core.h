@@ -36,6 +36,9 @@
 
 #define SYC_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
+#define SYCNAMESPEC_BEGIN   namespace syc {
+#define SYCNAMESPEC_END     }
+
 namespace syc
 {
 	typedef void                 void_;
