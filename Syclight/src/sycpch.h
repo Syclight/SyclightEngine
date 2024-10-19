@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Syclight/Log.h"
+#include "Syclight/Core/Log.h"
 
 #ifdef SYC_PLATFORM_WINDOWS
 	#include <Windows.h>

@@ -6,7 +6,7 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include "Syclight/Application.h"
+#include "Syclight/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>

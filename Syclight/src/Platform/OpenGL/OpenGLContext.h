@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Syclight/Common.h"
-#include "Syclight/Core.h"
+#include "Syclight/Core/Core.h"
 #include "Syclight/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;

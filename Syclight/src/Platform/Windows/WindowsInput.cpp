@@ -1,7 +1,7 @@
 #include "sycpch.h"
 #include "WindowsInput.h"
 
-#include "Syclight/Application.h"
+#include "Syclight/Core/Application.h"
 #include <GLFW/glfw3.h>
 
 namespace syc

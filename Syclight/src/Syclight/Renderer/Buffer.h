@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Syclight/Common.h"
-
 namespace syc
 {
 	enum class SYC_API ShaderDataType

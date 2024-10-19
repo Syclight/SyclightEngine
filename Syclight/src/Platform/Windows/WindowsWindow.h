@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Syclight/Window.h"
+#include "Syclight/Core/Window.h"
 #include "Syclight/Renderer/GraphicsContext.h"
 
 #include <GLFW/glfw3.h>

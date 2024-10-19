@@ -8,18 +8,17 @@
 
 #include <stdio.h>
 
-#include "Syclight/Common.h"
+#include "Syclight/Core/Common.h"
 
-#include "Syclight/Application.h"
-#include "Syclight/Layer.h"
-#include "Syclight/Log.h"
+#include "Syclight/Core/Application.h"
+#include "Syclight/Core/Layer.h"
+#include "Syclight/Core/Log.h"
 
 #include "Syclight/Core/Timestep.h"
 
-#include "Syclight/Input.h"
-#include "Syclight/KeyCodes.h"
-#include "Syclight/MouseButtonCodes.h"
-#include "Syclight/OrthographicCameraController.h"
+#include "Syclight/Core/Input.h"
+#include "Syclight/Core/KeyCodes.h"
+#include "Syclight/Core/MouseButtonCodes.h"
 
 #include "Syclight/ImGui/ImGuiLayer.h"
 
@@ -33,10 +32,11 @@
 #include "Syclight/Renderer/VertexArray.h"
 
 #include "Syclight/Renderer/OrthographicCamera.h"
+#include "Syclight/Renderer/OrthographicCameraController.h"
 //-------------------------------------------------------
 
 //---EntryPort-------------------------------------------
-#include "Syclight/EntryPoint.h"
+#include "Syclight/Core/EntryPoint.h"
 //-------------------------------------------------------
 
 

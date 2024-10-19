@@ -1,7 +1,6 @@
 #pragma once
 
-#include "Syclight/Core.h"
-#include "Syclight/Common.h"
+#include "Syclight/Core/Core.h"
 #include "Syclight/Events/Event.h"
 #include "Syclight/Core/Timestep.h"
 

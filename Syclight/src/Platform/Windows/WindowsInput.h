@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Syclight/Input.h"
+#include "Syclight/Core/Input.h"
 
 namespace syc
 {

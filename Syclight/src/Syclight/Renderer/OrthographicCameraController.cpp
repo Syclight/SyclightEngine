@@ -1,8 +1,8 @@
 #include "sycpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Syclight/Input.h"
-#include "Syclight/KeyCodes.h"
+#include "Syclight/Core/Input.h"
+#include "Syclight/Core/KeyCodes.h"
 
 namespace syc 
 {

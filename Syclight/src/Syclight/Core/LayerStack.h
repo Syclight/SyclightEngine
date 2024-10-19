@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Syclight/Core.h"
-#include "Syclight/Layer.h"
+#include "Syclight/Core/Core.h"
+#include "Syclight/Core/Layer.h"
 
 #include <vector>
 
