@@ -32,11 +32,13 @@ namespace syc
 
 	private:
 		bool8 OnWindowClose(WindowCloseEvent& e);
+		bool OnWindowResize(WindowResizeEvent& e);
 
 	private:
 		std::unique_ptr<SycWindow> m_Window;
 		ImGuiLayer* m_ImGuiLayer = nullptr;
 		bool8 m_Running = true;
+		bool8 m_Mininized = false;
 		LayerStack m_LayerStack;
 		float32 m_LastFrameTime = 0.0f;
 

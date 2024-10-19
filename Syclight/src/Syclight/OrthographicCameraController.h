@@ -20,6 +20,9 @@ namespace syc
 		OrthographicCamera& GetCamera() { return m_Camera; }
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
 
+		void_ SetZoomLevel(float32 level) { m_ZoomLevel = level; }
+		float32 GetZoomLevel() { return m_ZoomLevel; }
+
 	private:
 		bool8 OnMouseScrolled(MouseScrolledEvent& e);
 		bool8 OnWindowResized(WindowResizeEvent& e);

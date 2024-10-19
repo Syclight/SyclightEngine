@@ -14,11 +14,11 @@ class ExampleLayer : public syc::Layer
 public:
 	ExampleLayer()
 		: Layer("Example"),
-		m_CameraController(16.0f / 9.0f, true)
+		m_CameraController(16.0f / 9.0f)
 	{
 		m_VertexArray.reset(syc::VertexArray::Create());
 
-		Float32 vertices[3 * 7] = {
+		F32 vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 			 0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
@@ -42,7 +42,7 @@ public:
 
 		m_SquareVA.reset(syc::VertexArray::Create());
 
-		Float32 squareVertices[5 * 4] = {
+		F32 squareVertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
 			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
@@ -165,9 +165,9 @@ public:
 		mi->Set("u_Color", red);
 		squareMesh->SetMaterial(mi);*/
 
-		for (Uint32 y = 0; y < 20; y++)
+		for (UI32 y = 0; y < 20; y++)
 		{
-			for (Uint32 x = 0; x < 20; x++)
+			for (UI32 x = 0; x < 20; x++)
 			{
 				glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
@@ -200,6 +200,14 @@ public:
 	void OnEvent(syc::Event& e) override
 	{
 		m_CameraController.OnEvent(e);
+
+	/*	if (e.GetEventType() == syc::EventType::WindowResize)
+		{
+			auto& re = (syc::WindowResizeEvent&)e;
+
+			F32 zoom = (F32)re.GetWidth() / WIND_WIDTH;
+			m_CameraController.SetZoomLevel(zoom);
+		}*/
 	}
 
 	/*bool OnKeyPressedEvent(syc::KeyPressedEvent& e)

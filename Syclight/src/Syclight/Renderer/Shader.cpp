@@ -30,7 +30,7 @@ namespace syc
 
 	void_ ShaderLibrary::Add(const std::string& name, const Ref<Shader>& shader)
 	{
-		SYC_CORE_ASSERT(!Exists(name), "Shader: '{0}' already exists!", name);
+		SYC_CORE_ASSERT(!Exists(name), "Shader already exists!");
 		m_Shaders[name] = shader;
 	}
 
@@ -56,7 +56,7 @@ namespace syc
 
 	Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	{
-		SYC_CORE_ASSERT(Exists(name), "Shader '{0}' not found!", name);
+		SYC_CORE_ASSERT(Exists(name), "Shader not found!");
 		return m_Shaders[name];
 	}
 

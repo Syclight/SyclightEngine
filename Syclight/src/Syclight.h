@@ -41,9 +41,9 @@
 
 
 //---宏定义-----------------------------------------------
-#define   Int32       syc::int32
-#define   Uint32      syc::uint32
-#define   Float32     syc::float32
+#define   I32       syc::int32
+#define   UI32      syc::uint32
+#define   F32     syc::float32
 
 //-------------------------------------------------------
 #endif // !__SYC_SYCLIGHT_H__

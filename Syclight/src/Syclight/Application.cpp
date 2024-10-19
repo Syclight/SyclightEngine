@@ -44,20 +44,19 @@ namespace syc
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
+			if (!m_Mininized)
 			{
-				layer->OnUpdate(timestep);
+				for (Layer* layer : m_LayerStack)
+				{
+					layer->OnUpdate(timestep);
+				}
 			}
-
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 			{
 				layer->OnImGuiRender();
 			}
 			m_ImGuiLayer->End();
-
-			/*auto [x, y] = Input::GetMousePosition();
-			SYC_CORE_TRACE("{0}, {1}", x, y);*/
 
 			m_Window->OnUpdate();
 		}
@@ -67,6 +66,7 @@ namespace syc
 	{
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -94,5 +94,18 @@ namespace syc
 	{
 		m_Running = false;
 		return true;
+	}
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetWidth() == 0 || e.GetHeight() == 0)
+		{
+			m_Mininized = true;
+			return false;
+		}
+
+		m_Mininized = false;
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 }
