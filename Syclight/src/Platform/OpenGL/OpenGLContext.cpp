@@ -23,6 +23,15 @@ namespace syc
 		SYC_CORE_INFO("   Vender: {0}", glGetString(GL_VENDOR));
 		SYC_CORE_INFO("   Renderer: {0}", glGetString(GL_RENDERER));
 		SYC_CORE_INFO("   Version: {0}", glGetString(GL_VERSION));
+
+	#ifdef SYC_ENABLE_ASSERTS
+		int32 versionMajor, versionMinor;
+		glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
+		glGetIntegerv(GL_MINOR_VERSION, &versionMinor);
+
+		SYC_CORE_ASSERT(versionMajor > 4 || (versionMajor == 4 && versionMinor >= 5), "Syclight requires at least OpenGL version 4.5!")
+	#endif // SYC_ENABLE_ASSERTS
+
 	}
 
 	void_ OpenGLContext::SwapBuffers()

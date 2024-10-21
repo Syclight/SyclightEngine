@@ -9,6 +9,8 @@ namespace syc
 	{
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void_ OpenGLRendererAPI::SetViewport(int32 x, int32 y, int32 width, int32 height)

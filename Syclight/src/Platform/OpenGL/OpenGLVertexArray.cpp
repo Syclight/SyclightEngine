@@ -45,7 +45,7 @@ namespace syc
 		glBindVertexArray(0);
 	}
 
-	void_ OpenGLVertexArray::AddVerrtexBuffer(const Ref<VertexBuffer>& vertexBuffer)
+	void_ OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
 		SYC_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout! Did you call 'VertexBuffer->SetLayout' before 'VertexArray->AddVerrtexBuffer'?");
 

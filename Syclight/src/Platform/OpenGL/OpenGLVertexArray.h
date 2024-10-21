@@ -13,7 +13,7 @@ namespace syc
 		virtual void_ Bind() const override;
 		virtual void_ Unbind() const override;
 
-		virtual void_ AddVerrtexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
+		virtual void_ AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) override;
 		virtual void_ SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) override;
 
 		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
