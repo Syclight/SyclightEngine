@@ -1,4 +1,6 @@
-#include "Syclight.h"
+#include <Syclight.h>
+#include <Syclight/Core/EntryPoint.h>
+
 #include "Platform/OpenGL/OpenGLShader.h"
 
 #include "imgui/imgui.h"
@@ -6,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Syclight/Renderer/Shader.h"
+#include "Playground2D.h"
 
 
 class ExampleLayer : public syc::Layer
@@ -16,7 +18,7 @@ public:
 		: Layer("Example"),
 		m_CameraController(16.0f / 9.0f)
 	{
-		m_VertexArray.reset(syc::VertexArray::Create());
+		m_VertexArray = syc::VertexArray::Create();
 
 		F32 vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
@@ -33,14 +35,14 @@ public:
 			//{ ShaderDataType::Float3, "a_Normal" }
 		};
 		vertexBuffer->SetLayout(layout);
-		m_VertexArray->AddVerrtexBuffer(vertexBuffer);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		syc::uint32 indices[3] = { 0, 1, 2 };
 		syc::Ref<syc::IndexBuffer> indexBuffer;
 		indexBuffer.reset(syc::IndexBuffer::Create(indices, sizeof(indices) / sizeof(syc::uint32)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_SquareVA.reset(syc::VertexArray::Create());
+		m_SquareVA = syc::VertexArray::Create();
 
 		F32 squareVertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -56,7 +58,7 @@ public:
 			{ syc::ShaderDataType::Float2, "a_TexCoord" }
 		};
 		SquareVB->SetLayout(SquareLayout);
-		m_SquareVA->AddVerrtexBuffer(SquareVB);
+		m_SquareVA->AddVertexBuffer(SquareVB);
 
 		syc::uint32 SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
 		syc::Ref<syc::IndexBuffer> SquareIB;
@@ -139,7 +141,7 @@ public:
 		m_NanacoTex = syc::Texture2D::Create("assets/textures/nanaco.png");
 
 		std::dynamic_pointer_cast<syc::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<syc::OpenGLShader>(textureShader)->UploadUniforInt("m_TextureShader", 0);
+		std::dynamic_pointer_cast<syc::OpenGLShader>(textureShader)->UploadUniformInt("m_TextureShader", 0);
 	}
 
 	void OnUpdate(syc::Timestep timestep) override
@@ -153,11 +155,10 @@ public:
 
 		syc::Renderer::BeginScene(m_CameraController.GetCamera());
 
-		//glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_SquarePosition);
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 		std::dynamic_pointer_cast<syc::OpenGLShader>(m_SquareShader)->Bind();
-		std::dynamic_pointer_cast<syc::OpenGLShader>(m_SquareShader)->UploadUniforFloat3("u_Color", m_SquareColor);
+		std::dynamic_pointer_cast<syc::OpenGLShader>(m_SquareShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		/*syc::MaterialRef material = new syc::Material(m_SquareShader);
 		syc::MaterialInstanceRef mi = new syc::MaterialInstanceRef(material);
@@ -238,7 +239,8 @@ class Sandbox : public syc::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Playground2D());
 	}
 
 	~Sandbox()

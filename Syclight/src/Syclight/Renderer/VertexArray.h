@@ -13,13 +13,13 @@ namespace syc
 		virtual void_ Bind() const = 0;
 		virtual void_ Unbind() const = 0;
 
-		virtual void_ AddVerrtexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
+		virtual void_ AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) = 0;
 		virtual void_ SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) = 0;
 
 		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
 		virtual const Ref<IndexBuffer>& GetIndexBuffers() const = 0;
 
-		static VertexArray* Create();
+		static Ref<VertexArray> Create();
 	};
 }
 

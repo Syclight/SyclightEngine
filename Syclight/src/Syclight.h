@@ -24,6 +24,7 @@
 
 //---Renderer--------------------------------------------
 #include "Syclight/Renderer/Renderer.h"
+#include "Syclight/Renderer/Renderer2D.h"
 #include "Syclight/Renderer/RenderCommand.h"
 
 #include "Syclight/Renderer/Buffer.h"
@@ -35,9 +36,9 @@
 #include "Syclight/Renderer/OrthographicCameraController.h"
 //-------------------------------------------------------
 
-//---EntryPort-------------------------------------------
-#include "Syclight/Core/EntryPoint.h"
-//-------------------------------------------------------
+////---EntryPort-------------------------------------------
+//#include "Syclight/Core/EntryPoint.h"
+////-------------------------------------------------------
 
 
 //---宏定义-----------------------------------------------
