@@ -15,6 +15,8 @@ namespace syc
 
 	void_ OpenGLContext::Init()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int32 status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		SYC_CORE_ASSERT(status, "Failed to initailize Glad");
@@ -36,6 +38,8 @@ namespace syc
 
 	void_ OpenGLContext::SwapBuffers()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }

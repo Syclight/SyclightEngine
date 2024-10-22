@@ -15,7 +15,7 @@ namespace syc
 
 		virtual void_ OnAttach() override;
 		virtual void_ OnDetach() override;
-		virtual void_ OnImGuiRender() override;
+		//virtual void_ OnImGuiRender() override;
 		//virtual void_ OnUpdate() override;
 		//virtual void_ OnEvent(Event& event);
 

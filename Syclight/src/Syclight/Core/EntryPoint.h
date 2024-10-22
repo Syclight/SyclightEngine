@@ -11,14 +11,17 @@ int main(int argc, char** argv)
 {
 	syc::Log::Init();
 
-	SYC_CORE_WARN("Initialized Log!");
-	std::string name = "user";
-	SYC_INFO("Hello! {}", name);
-
+	SYC_PROFILE_BEGIN_SESSION("Startup", "SyclightProfile-Startup.json");
 	auto app = syc::CreateApplication();
-	app->Run();
+	SYC_PROFILE_END_SESSION();
 
+	SYC_PROFILE_BEGIN_SESSION("Runtime", "SyclightProfile-Runtime.json");
+	app->Run();
+	SYC_PROFILE_END_SESSION();
+
+	SYC_PROFILE_BEGIN_SESSION("Shutdown", "SyclightProfile-Shutdown.json");
 	delete app;
+	SYC_PROFILE_END_SESSION();
 
 	return 0;
 }

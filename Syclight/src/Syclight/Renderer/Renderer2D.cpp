@@ -21,8 +21,9 @@ namespace syc
 
 	void_ Renderer2D::Init()
 	{
-		s_Data = new Renderer2DStorage();
+		SYC_PROFILE_FUNCTION();
 
+		s_Data = new Renderer2DStorage();
 		s_Data->QuadVertexArray = syc::VertexArray::Create();
 
 		float squareVertices[5 * 4] = {
@@ -56,17 +57,23 @@ namespace syc
 
 	void_ Renderer2D::Shutdown()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
 	void_ Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 
 	void_ Renderer2D::EndScene()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		return void_();
 	}
 
@@ -77,6 +84,8 @@ namespace syc
 
 	void_ Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 
@@ -94,6 +103,8 @@ namespace syc
 
 	void_ Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f));
 		texture->Bind();
 

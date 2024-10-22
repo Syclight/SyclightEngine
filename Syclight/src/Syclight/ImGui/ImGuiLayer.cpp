@@ -57,6 +57,8 @@ namespace syc
 	}*/
 
 	void_ ImGuiLayer::OnAttach() {
+		SYC_PROFILE_FUNCTION();
+
 		// 设置 ImGui context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -96,16 +98,18 @@ namespace syc
 
 	void_ ImGuiLayer::OnDetach()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
 
-	void_ ImGuiLayer::OnImGuiRender()
+	/*void_ ImGuiLayer::OnImGuiRender()
 	{
 		static bool8 show = true;
 		ImGui::ShowDemoWindow(&show);
-	}
+	}*/
 
 	/*void_ ImGuiLayer::OnUpdate()
 	{
@@ -129,6 +133,8 @@ namespace syc
 
 	void_ ImGuiLayer::Begin()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -136,6 +142,8 @@ namespace syc
 
 	void_ ImGuiLayer::End()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());

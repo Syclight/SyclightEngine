@@ -8,6 +8,8 @@ namespace syc
 
 	void_ Renderer::Init()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		RenderCommand::Init();
 		Renderer2D::Init();
 	}

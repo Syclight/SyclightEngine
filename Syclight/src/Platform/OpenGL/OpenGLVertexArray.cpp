@@ -27,26 +27,36 @@ namespace syc
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
 	void_ OpenGLVertexArray::Bind() const
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 	}
 
 	void_ OpenGLVertexArray::Unbind() const
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 
 	void_ OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		SYC_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size(), "Vertex Buffer has no layout! Did you call 'VertexBuffer->SetLayout' before 'VertexArray->AddVerrtexBuffer'?");
 
 		glBindVertexArray(m_RendererID);
@@ -71,6 +81,8 @@ namespace syc
 
 	void_ OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
 
