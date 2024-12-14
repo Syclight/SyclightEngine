@@ -127,7 +127,7 @@ namespace syc
 	};
 }
 
-#define SYC_PROFILE 1
+#define SYC_PROFILE 0
 
 #if SYC_PROFILE
 	#define SYC_PROFILE_BEGIN_SESSION(name, filepath)   ::syc::Instumentor::Get().BeginSession(name, filepath)

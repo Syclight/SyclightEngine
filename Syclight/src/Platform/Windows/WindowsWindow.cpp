@@ -24,6 +24,7 @@ namespace syc
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
 		SYC_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
@@ -191,6 +192,13 @@ namespace syc
 	bool8 WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	void_ WindowsWindow::SetWindowSize(uint32 width, uint32 height)
+	{
+		m_Data.Width = width;
+		m_Data.Height = height;
+		glfwSetWindowSize(m_Window, m_Data.Width, m_Data.Height);
 	}
 }
 

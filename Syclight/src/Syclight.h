@@ -20,6 +20,9 @@
 #include "Syclight/Core/KeyCodes.h"
 #include "Syclight/Core/MouseButtonCodes.h"
 
+#include "Syclight/Math/Random.h"
+#include "Syclight/Physics/PhysicsTools.h"
+
 #include "Syclight/ImGui/ImGuiLayer.h"
 
 //---Renderer--------------------------------------------

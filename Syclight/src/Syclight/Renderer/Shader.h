@@ -16,6 +16,7 @@ namespace syc
 
 
 		virtual void_ SetInt(const std::string& name, const int32 value) = 0;
+		virtual void_ SetFloat(const std::string& name, const float32 value) = 0;
 		virtual void_ SetFloat3(const std::string& name, const glm::vec3& value) = 0;
 		virtual void_ SetFloat4(const std::string& name, const glm::vec4& value) = 0;
 		virtual void_ SetMat4(const std::string& name, const glm::mat4& value) = 0;
