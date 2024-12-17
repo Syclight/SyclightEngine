@@ -37,9 +37,9 @@ namespace syc
 			s_RendererAPI->ShutdownDepthMask();
 		}
 
-		inline static void_ DrawIndexed(const Ref<VertexArray>& vertexArray)
+		inline static void_ DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0)
 		{
-			s_RendererAPI->DrawIndexed(vertexArray);
+			s_RendererAPI->DrawIndexed(vertexArray, indexCount);
 		}
 
 		inline static void_ SetupDepthTest()

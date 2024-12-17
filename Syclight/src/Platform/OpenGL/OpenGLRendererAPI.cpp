@@ -49,8 +49,10 @@ namespace syc
 		glDisable(GL_DEPTH_TEST);
 	}
 
-	void_ OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
+	void_ OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t IndexCount)
 	{
-		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		uint32_t count = IndexCount == 0 ? vertexArray->GetIndexBuffers()->GetCount() : IndexCount;
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }

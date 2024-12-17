@@ -16,7 +16,7 @@ namespace syc
 		virtual void_ SetupDepthTest() override;
 		virtual void_ ShutdownDepthTest() override;
 
-		virtual void_ DrawIndexed(const Ref<VertexArray>& vertexArray) override;
+		virtual void_ DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t IndexCount = 0) override;
 	};
 }
 

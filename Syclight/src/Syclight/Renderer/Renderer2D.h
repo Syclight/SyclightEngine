@@ -13,6 +13,7 @@ namespace syc
 
 		static void_ BeginScene(const OrthographicCamera& camera);
 		static void_ EndScene();
+		static void_ Flush();
 
 		// Primitives
 		static void_ DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color);

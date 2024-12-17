@@ -139,6 +139,8 @@ namespace syc
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void_ SetLayout(const BufferLayout& layout) = 0;
 
+		virtual void_ SetData(const void* data, uint32_t size) = 0;
+
 		static Ref<VertexBuffer> Create(uint32 size);
 		static Ref<VertexBuffer> Create(float32* vertices, size1d size);
 	};
