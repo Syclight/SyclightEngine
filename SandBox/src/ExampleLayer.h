@@ -24,8 +24,7 @@ public:
 			 0.0f,  0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		syc::Ref<syc::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(syc::VertexBuffer::Create(vertices, sizeof(vertices)));
+		syc::Ref<syc::VertexBuffer> vertexBuffer = syc::VertexBuffer::Create(vertices, sizeof(vertices));
 
 		syc::BufferLayout layout = {
 			{ syc::ShaderDataType::Float3, "a_Position" },
@@ -36,8 +35,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		syc::uint32 indices[3] = { 0, 1, 2 };
-		syc::Ref<syc::IndexBuffer> indexBuffer;
-		indexBuffer.reset(syc::IndexBuffer::Create(indices, sizeof(indices) / sizeof(syc::uint32)));
+		syc::Ref<syc::IndexBuffer> indexBuffer = syc::IndexBuffer::Create(indices, sizeof(indices) / sizeof(syc::uint32));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_SquareVA = syc::VertexArray::Create();
@@ -49,8 +47,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		syc::Ref<syc::VertexBuffer> SquareVB;
-		SquareVB.reset(syc::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		syc::Ref<syc::VertexBuffer> SquareVB = syc::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		syc::BufferLayout SquareLayout = {
 			{ syc::ShaderDataType::Float3, "a_Position" },
 			{ syc::ShaderDataType::Float2, "a_TexCoord" }
@@ -59,8 +56,7 @@ public:
 		m_SquareVA->AddVertexBuffer(SquareVB);
 
 		syc::uint32 SquareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		syc::Ref<syc::IndexBuffer> SquareIB;
-		SquareIB.reset(syc::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices) / sizeof(syc::uint32)));
+		syc::Ref<syc::IndexBuffer> SquareIB = syc::IndexBuffer::Create(SquareIndices, sizeof(SquareIndices) / sizeof(syc::uint32));
 		m_SquareVA->SetIndexBuffer(SquareIB);
 
 		std::string vertexShader = R"(

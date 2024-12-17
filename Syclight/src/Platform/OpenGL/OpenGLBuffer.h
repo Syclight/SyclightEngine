@@ -9,6 +9,7 @@ namespace syc
 	class SYC_API OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
+		OpenGLVertexBuffer(size1d size);
 		OpenGLVertexBuffer(float32* vertices, size1d size);
 		virtual ~OpenGLVertexBuffer();
 

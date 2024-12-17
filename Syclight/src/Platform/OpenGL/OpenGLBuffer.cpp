@@ -8,6 +8,14 @@ namespace syc
 	// VertexBuffer //////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////
 
+	OpenGLVertexBuffer::OpenGLVertexBuffer(size1d size)
+	{
+		SYC_PROFILE_FUNCTION();
+		glCreateBuffers(1, &m_RendererID);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	OpenGLVertexBuffer::OpenGLVertexBuffer(float32* vertices, size1d size)
 	{
 		SYC_PROFILE_FUNCTION();
