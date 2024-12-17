@@ -27,9 +27,29 @@ namespace syc
 			s_RendererAPI->Clear();
 		}
 
+		inline static void_ SetupDepthMask()
+		{
+			s_RendererAPI->SetupDepthMask();
+		}
+
+		inline static void_ ShutdownDepthMask()
+		{
+			s_RendererAPI->ShutdownDepthMask();
+		}
+
 		inline static void_ DrawIndexed(const Ref<VertexArray>& vertexArray)
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);
+		}
+
+		inline static void_ SetupDepthTest()
+		{
+			s_RendererAPI->SetupDepthTest();
+		}
+
+		inline static void_ ShutdownDepthTest()
+		{
+			s_RendererAPI->ShutdownDepthTest();
 		}
 
 	private:

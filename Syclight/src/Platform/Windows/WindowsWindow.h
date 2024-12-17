@@ -17,11 +17,14 @@ namespace syc
 
 		inline uint32 GetWidth() const override { return m_Data.Width; }
 		inline uint32 GetHeight() const override { return m_Data.Height; }
+		inline std::pair<uint32, uint32> GetCenter() const override { return  { m_Data.Width / 2u, m_Data.Height / 2u }; }
 
 		//窗口属性
 		inline void_ SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void_ SetVSync(bool8 enabled) override;
 		bool8 IsVSync() const override;
+		virtual void_ SetWindowSize(uint32 width, uint32 height)override;
+
 		void_* GetNativeWindow() const override { return m_Window; }
 
 	private:

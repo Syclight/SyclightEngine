@@ -22,6 +22,8 @@ namespace syc
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		std::string source = ReadFile(filepath);
 		auto shaderSources = PreProcess(source);
 		Complie(shaderSources);
@@ -37,6 +39,8 @@ namespace syc
 	OpenGLShader::OpenGLShader(const std::string name, const std::string& vertexSrc, const std::string& fragmentSrc)
 		:m_Name(name)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSrc;
 		sources[GL_FRAGMENT_SHADER] = fragmentSrc;
@@ -45,22 +49,33 @@ namespace syc
 
 	OpenGLShader::~OpenGLShader()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 	void_ OpenGLShader::Bind() const
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void_ OpenGLShader::Unbind() const
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
 	void_ OpenGLShader::SetInt(const std::string& name, const int32 value)
 	{
 		UploadUniformInt(name, value);
+	}
+
+	void_ OpenGLShader::SetFloat(const std::string& name, const float32 value)
+	{
+		UploadUniformFloat(name, value);
 	}
 
 	void_ OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
@@ -80,65 +95,87 @@ namespace syc
 
 	void_ OpenGLShader::UploadUniformInt(const std::string& name, int32 values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, values);
 	}
 
 	void_ OpenGLShader::UploadUniformInt2(const std::string& name, const glm::ivec2& values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform2i(location, values.x, values.y);
 	}
 
 	void_ OpenGLShader::UploadUniformInt3(const std::string& name, const glm::ivec3& values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform3i(location, values.x, values.y, values.z);
 	}
 
 	void_ OpenGLShader::UploadUniformInt4(const std::string& name, const glm::ivec4& values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform4i(location, values.x, values.y, values.z, values.w);
 	}
 
 	void_ OpenGLShader::UploadUniformFloat(const std::string& name, float32 values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1f(location, values);
 	}
 
 	void_ OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform2f(location, values.x, values.y);
 	}
 
 	void_ OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform3f(location, values.x, values.y, values.z);
 	}
 
 	void_ OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& values)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform4f(location, values.x, values.y, values.z, values.w);
 	}
 
 	void_ OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
 	void_ OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 	std::string OpenGLShader::ReadFile(const std::string& filepath)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		std::string result;
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in)
@@ -158,6 +195,8 @@ namespace syc
 	}
 	std::unordered_map<GLenum, std::string> OpenGLShader::PreProcess(const std::string& source)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources;
 
 		const char8* typeToken = "#type";
@@ -181,6 +220,8 @@ namespace syc
 	}
 	void_ OpenGLShader::Complie(std::unordered_map<GLenum, std::string>& shaderSources)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLuint program = glCreateProgram();
 		std::vector<GLenum> glShaderIDs;
 		/*std::array<GLenum, 2>*/

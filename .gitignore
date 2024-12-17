@@ -3,14 +3,19 @@
 bin/
 bin-int/
 
+#profiles
+SandBox/SyclightProfile-Runtime.json
+SandBox/SyclightProfile-Shutdown.json
+SandBox/SyclightProfile-Startup.json
+
 #spdlog-v1 dirs 
-Syclight/3rd_party_libs/spdlog-v1.x/bench/
-Syclight/3rd_party_libs/spdlog-v1.x/cmake/
-Syclight/3rd_party_libs/spdlog-v1.x/example/
-Syclight/3rd_party_libs/spdlog-v1.x/logos/
-Syclight/3rd_party_libs/spdlog-v1.x/scripts/
-Syclight/3rd_party_libs/spdlog-v1.x/src/
-Syclight/3rd_party_libs/spdlog-v1.x/tests/
+Syclight/vendor/spdlog-v1.x/bench/
+Syclight/vendor/spdlog-v1.x/cmake/
+Syclight/vendor/spdlog-v1.x/example/
+Syclight/vendor/spdlog-v1.x/logos/
+Syclight/vendor/spdlog-v1.x/scripts/
+Syclight/vendor/spdlog-v1.x/src/
+Syclight/vendor/spdlog-v1.x/tests/
 
 ###files
 *.user
@@ -19,11 +24,11 @@ Syclight/3rd_party_libs/spdlog-v1.x/tests/
 *.vcxproj.filters
 
 #spdlog-v1 files 
-Syclight/3rd_party_libs/spdlog-v1.x/.clang-format
-Syclight/3rd_party_libs/spdlog-v1.x/.clang-tidy
-Syclight/3rd_party_libs/spdlog-v1.x/.gitattributes
-Syclight/3rd_party_libs/spdlog-v1.x/.gitignore
-Syclight/3rd_party_libs/spdlog-v1.x/.travis.yml
-Syclight/3rd_party_libs/spdlog-v1.x/appveyor.yml
-Syclight/3rd_party_libs/spdlog-v1.x/CMakeLists.txt
-Syclight/3rd_party_libs/spdlog-v1.x/INSTALL
+Syclight/vendor/spdlog-v1.x/.clang-format
+Syclight/vendor/spdlog-v1.x/.clang-tidy
+Syclight/vendor/spdlog-v1.x/.gitattributes
+Syclight/vendor/spdlog-v1.x/.gitignore
+Syclight/vendor/spdlog-v1.x/.travis.yml
+Syclight/vendor/spdlog-v1.x/appveyor.yml
+Syclight/vendor/spdlog-v1.x/CMakeLists.txt
+Syclight/vendor/spdlog-v1.x/INSTALL

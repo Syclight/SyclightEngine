@@ -9,7 +9,7 @@
 
 namespace syc
 {
-	static bool8 s_GLFWInitialized = false;
+	static uint8 s_GLFWWindowCount = 0;
 
 	static void_ GLFWErrorCallback(int32 error, const char8* description)
 	{
@@ -23,22 +23,27 @@ namespace syc
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		Shutdown();
 	}
 
 	void_ WindowsWindow::Init(const WindowProps& props)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
 
 		SYC_CORE_INFO("Creating window {0} ({1}, {2})", m_Data.Title, m_Data.Width, m_Data.Height);
 
-		if (!s_GLFWInitialized)
+		if (s_GLFWWindowCount == 0)
 		{
 			int32 success = glfwInit();
 			/*glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -46,11 +51,11 @@ namespace syc
 			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);*/
 			SYC_CORE_ASSERT(success, "Could not intialize GLFW!");
 			glfwSetErrorCallback(GLFWErrorCallback);
-			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int32)m_Data.Width, (int32)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		
+		++s_GLFWWindowCount;
+
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
 		
@@ -150,17 +155,29 @@ namespace syc
 
 	void_ WindowsWindow::Shutdown()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
+		--s_GLFWWindowCount;
+
+		if (s_GLFWWindowCount == 0)
+		{
+			glfwTerminate();
+		}
 	}
 
 	void_ WindowsWindow::OnUpdate()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void_ WindowsWindow::SetVSync(bool8 enabled)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		if (enabled)
 		{
 			glfwSwapInterval(1);
@@ -175,6 +192,13 @@ namespace syc
 	bool8 WindowsWindow::IsVSync() const
 	{
 		return m_Data.VSync;
+	}
+
+	void_ WindowsWindow::SetWindowSize(uint32 width, uint32 height)
+	{
+		m_Data.Width = width;
+		m_Data.Height = height;
+		glfwSetWindowSize(m_Window, m_Data.Width, m_Data.Height);
 	}
 }
 

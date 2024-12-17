@@ -8,6 +8,8 @@ namespace syc
 	OpenGLTexture2D::OpenGLTexture2D(uint32 width, uint32 height, uint32 type)
 		:m_Width(width), m_Height(height)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		GLenum interalFormat = 0, dataFormat = 0;
 
 		if (type == 4)
@@ -38,9 +40,15 @@ namespace syc
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 		:m_Path(path)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		int32 width, height, channels;
 		stbi_set_flip_vertically_on_load(true);
-		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		stbi_uc* data = nullptr;
+		{
+			SYC_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(const std::string&)");
+			data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+		}
 		SYC_CORE_ASSERT(data, "Fail to load image!");
 		m_Width = width;
 		m_Height = height;
@@ -79,11 +87,15 @@ namespace syc
 
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &m_RendererID);
 	}
 
 	void_ OpenGLTexture2D::SetData(void_* data, uint32 size)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		uint32 bpp = m_DataFormat == GL_RGBA ? 4 : 3;
 		SYC_CORE_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!")
 		glTextureSubImage2D(m_RendererID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
@@ -91,6 +103,8 @@ namespace syc
 
 	void_ OpenGLTexture2D::Bind(uint32 slot) const
 	{
+		SYC_PROFILE_FUNCTION();
+
 		glBindTextureUnit(slot, m_RendererID);
 	}
 }

@@ -15,6 +15,8 @@
 
 #include "Syclight/Core/Log.h"
 
+#include "Syclight/Debug/Instrument.h"
+
 #ifdef SYC_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif // SYC_PLATFORM_WINDOWS

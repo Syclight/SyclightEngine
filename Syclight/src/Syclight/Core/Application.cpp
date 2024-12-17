@@ -9,16 +9,16 @@
 
 namespace syc
 {
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		SYC_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 		m_Window = std::unique_ptr<SycWindow>(SycWindow::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetEventCallback(SYC_BIND_EVENT_FN(Application::OnEvent));
 		//m_Window->SetVSync(false);
 
 		Renderer::Init();
@@ -38,25 +38,38 @@ namespace syc
 
 	void_ Application::Run()
 	{
+		SYC_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			SYC_PROFILE_SCOPE("RunLoop");
+
 			float32 time = (float32)glfwGetTime();
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
 			if (!m_Mininized)
 			{
-				for (Layer* layer : m_LayerStack)
 				{
-					layer->OnUpdate(timestep);
+					SYC_PROFILE_SCOPE("LayerStack OnUpdates");
+
+					for (Layer* layer : m_LayerStack)
+					{
+						layer->OnUpdate(timestep);
+					}
 				}
+				m_ImGuiLayer->Begin();
+				{
+					SYC_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
+					for (Layer* layer : m_LayerStack)
+					{
+						layer->OnImGuiRender();
+					}
+				}
+				m_ImGuiLayer->End();
 			}
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-			{
-				layer->OnImGuiRender();
-			}
-			m_ImGuiLayer->End();
+			
 
 			m_Window->OnUpdate();
 		}
@@ -64,9 +77,11 @@ namespace syc
 
 	void_ Application::OnEvent(Event& e)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>(SYC_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(SYC_BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{
@@ -80,12 +95,16 @@ namespace syc
 
 	void_ Application::PushLayer(Layer* layer)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
 	}
 
 	void_ Application::PushOverlay(Layer* layer)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
 		layer->OnAttach();
 	}
@@ -97,6 +116,8 @@ namespace syc
 	}
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		SYC_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Mininized = true;

@@ -139,7 +139,8 @@ namespace syc
 		virtual const BufferLayout& GetLayout() const = 0;
 		virtual void_ SetLayout(const BufferLayout& layout) = 0;
 
-		static VertexBuffer* Create(float32* vertices, size1d size);
+		static Ref<VertexBuffer> Create(uint32 size);
+		static Ref<VertexBuffer> Create(float32* vertices, size1d size);
 	};
 
 	class SYC_API IndexBuffer
@@ -152,6 +153,6 @@ namespace syc
 
 		virtual uint32 GetCount() const = 0;
 
-		static IndexBuffer* Create(uint32* indices, size1d count);
+		static Ref<IndexBuffer> Create(uint32* indices, size1d count);
 	};
 }
