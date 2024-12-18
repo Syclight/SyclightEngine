@@ -20,6 +20,11 @@ namespace syc
 
 		virtual void_ Bind(uint32 slot = 0) const override;
 
+		virtual bool8 operator==(const Texture& other) const override
+		{
+			return m_RendererID == ((OpenGLTexture2D&)other).m_RendererID;
+		}
+
 	private:
 		std::string m_Path;
 		uint32 m_Width, m_Height;

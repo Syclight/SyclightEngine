@@ -18,8 +18,9 @@ namespace syc
 		virtual void_ Bind() const override;
 		virtual void_ Unbind() const override;
 
-		virtual void_ SetInt(const std::string& name, const int32 value) override;
-		virtual void_ SetFloat(const std::string& name, const float32 value) override;
+		virtual void_ SetInt(const std::string& name, int32 value) override;
+		virtual void_ SetIntArray(const std::string& name, int32* values, uint32_t count) override;
+		virtual void_ SetFloat(const std::string& name, float32 value) override;
 		virtual void_ SetFloat3(const std::string& name, const glm::vec3& value) override;
 		virtual void_ SetFloat4(const std::string& name, const glm::vec4& value) override;
 		virtual void_ SetMat4(const std::string& name, const glm::mat4& value) override;
@@ -27,6 +28,7 @@ namespace syc
 		virtual const std::string& GetName() const override { return m_Name; }
 
 		void_ UploadUniformInt(const std::string& name, int32 values);
+		void_ UploadUniformIntArray(const std::string& name, int32* values, uint32_t count);
 		void_ UploadUniformInt2(const std::string& name, const glm::ivec2& values);
 		void_ UploadUniformInt3(const std::string& name, const glm::ivec3& values);
 		void_ UploadUniformInt4(const std::string& name, const glm::ivec4& values);

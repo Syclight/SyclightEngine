@@ -16,6 +16,8 @@ namespace syc
 		virtual void_ SetData(void_* data, uint32 size) = 0;
 
 		virtual void_ Bind(uint32 slot = 0) const = 0;
+
+		virtual bool8 operator==(const Texture& other) const = 0;
 	};
 
 	class SYC_API Texture2D : public Texture
