@@ -22,9 +22,9 @@ namespace syc
 
 	struct Renderer2DData
 	{
-		const uint32_t MaxQuads = 10000;
-		const uint32_t MaxVertices = MaxQuads * 4;
-		const uint32_t MaxIndices = MaxQuads * 6;
+		static const uint32_t MaxQuads = 20000;
+		static const uint32_t MaxVertices = MaxQuads * 4;
+		static const uint32_t MaxIndices = MaxQuads * 6;
 		static const uint32_t MaxTextureSlots = 32; // TODO RenderCaps
 
 		Ref<VertexArray> QuadVertexArray;
@@ -39,7 +39,14 @@ namespace syc
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureSlotIndex = 1; // 0 is White Texture;
 
-		glm::vec4 QuadVertexPositions[4] = {};
+		glm::vec4 QuadVertexPositions[4] = {
+			{ -0.5f, -0.5f, 0.0f, 1.0f },
+			{ 0.5f, -0.5f, 0.0f, 1.0f },
+			{ 0.5f, 0.5f, 0.0f, 1.0f },
+			{ -0.5f, 0.5f, 0.0f, 1.0f }
+		};
+
+		Renderer2D::Statistics Stats;
 	};
 
 	static Renderer2DData s_Data;
@@ -59,7 +66,7 @@ namespace syc
 			});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
-		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxQuads];
+		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
 
 		uint32_t* quadIndices = new uint32_t[s_Data.MaxIndices];
 
@@ -97,15 +104,17 @@ namespace syc
 
 		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
 
-		s_Data.QuadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
+		/*s_Data.QuadVertexPositions[0] = { -0.5f, -0.5f, 0.0f, 1.0f };
 		s_Data.QuadVertexPositions[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
 		s_Data.QuadVertexPositions[2] = { 0.5f, 0.5f, 0.0f, 1.0f };
-		s_Data.QuadVertexPositions[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
+		s_Data.QuadVertexPositions[3] = { -0.5f, 0.5f, 0.0f, 1.0f };*/
 	}
 
 	void_ Renderer2D::Shutdown()
 	{
 		SYC_PROFILE_FUNCTION();
+
+		delete[] s_Data.QuadVertexBufferBase;
 	}
 
 	void_ Renderer2D::BeginScene(const OrthographicCamera& camera)
@@ -136,6 +145,28 @@ namespace syc
 			s_Data.TextureSlots[i]->Bind(i);
 		}
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
+		s_Data.Stats.DrawCalls++;
+	}
+
+	void_ Renderer2D::TestFlushAndNewBatch()
+	{
+		/*if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+		{
+			EndScene();
+
+			s_Data.QuadIndexCount = 0;
+			s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+			s_Data.TextureSlotIndex = 1;
+		}*/
+
+		EndScene();
+
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		s_Data.TextureSlotIndex = 1;
+		
 	}
 
 	void_ Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -146,6 +177,9 @@ namespace syc
 	void_ Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
 		SYC_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			TestFlushAndNewBatch();
 
 		float textureIndex = 0.0f; // White texture
 		float tilingFactor = 1.0f;
@@ -183,6 +217,8 @@ namespace syc
 
 		s_Data.QuadIndexCount += 6;
 
+		s_Data.Stats.QuadCount++;
+
 #if OLD_PATH
 		s_Data.TextureShader->SetFloat("u_TilingFactor", 1.0f);
 		s_Data.WhiteTexture->Bind();
@@ -204,6 +240,9 @@ namespace syc
 	void_ Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture, const float32 tilingFactor, const glm::vec4 tintColor)
 	{
 		SYC_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			TestFlushAndNewBatch();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 		
@@ -258,6 +297,8 @@ namespace syc
 
 		s_Data.QuadIndexCount += 6;
 
+		s_Data.Stats.QuadCount++;
+
 #if OLD_PATH
 		s_Data.TextureShader->SetFloat4("u_Color", tintColor);
 		s_Data.TextureShader->SetFloat("u_TilingFactor", tilingFactor);
@@ -280,6 +321,9 @@ namespace syc
 	void_ Renderer2D::DrawRotateQuad(const glm::vec3& position, const glm::vec2& size, const float32 rotate, const glm::vec4& color)
 	{
 		SYC_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			TestFlushAndNewBatch();
 
 		float textureIndex = 0.0f; // White texture
 		float tilingFactor = 1.0f;
@@ -318,6 +362,8 @@ namespace syc
 
 		s_Data.QuadIndexCount += 6;
 
+		s_Data.Stats.QuadCount++;
+
 #if OLD_PATH
 		s_Data.TextureShader->SetFloat4("u_Color", color);
 		s_Data.TextureShader->SetFloat("u_TilingFactor", 1.0f);
@@ -341,6 +387,9 @@ namespace syc
 	void_ Renderer2D::DrawRotateQuad(const glm::vec3& position, const glm::vec2& size, const float32 rotate, const Ref<Texture2D>& texture, const float32 tilingFactor, const glm::vec4 tintColor)
 	{
 		SYC_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			TestFlushAndNewBatch();
 
 		constexpr glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
@@ -396,6 +445,8 @@ namespace syc
 
 		s_Data.QuadIndexCount += 6;
 
+		s_Data.Stats.QuadCount++;
+
 #if OLD_PATH
 		s_Data.TextureShader->SetFloat4("u_Color", tintColor);
 		s_Data.TextureShader->SetFloat("u_TilingFactor", tilingFactor);
@@ -409,5 +460,14 @@ namespace syc
 		s_Data.QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray);
 #endif
+	}
+	void_ Renderer2D::ResetStats()
+	{
+		memset(&s_Data.Stats, 0, sizeof(Statistics));
+	}
+
+	Renderer2D::Statistics Renderer2D::GetStats()
+	{
+		return s_Data.Stats;
 	}
 }

@@ -26,7 +26,19 @@ namespace syc
 		static void_ DrawRotateQuad(const glm::vec2& position, const glm::vec2& size, const float32 rotate, const Ref<Texture2D>& texture, const float32 tilingFactor = 1.0f, glm::vec4 tintColor = glm::vec4(1.0f));
 		static void_ DrawRotateQuad(const glm::vec3& position, const glm::vec2& size, const float32 rotate, const Ref<Texture2D>& texture, const float32 tilingFactor = 1.0f, glm::vec4 tintColor = glm::vec4(1.0f));
 
+		struct Statistics
+		{
+			uint32_t DrawCalls = 0;
+			uint32_t QuadCount = 0;
 
+			uint32_t GetTotalVertexCount() { return QuadCount * 4; }
+			uint32_t GetTotalIndexCount() { return QuadCount * 6; }
+		};
+		static void_ ResetStats();
+		static Statistics GetStats();
+
+	private:
+		static void_ TestFlushAndNewBatch();
 	};
 }
 
