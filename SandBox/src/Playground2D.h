@@ -3,6 +3,7 @@
 #include "Syclight.h"
 #include "Syclight/Core/Timestep.h"
 #include "Syclight/Events/Event.h"
+#include "ParticleSystem.h"
 
 class Playground2D : public syc::Layer
 {
@@ -22,5 +23,13 @@ private:
 	syc::Ref<syc::Shader> m_FlatColorShader;
 	syc::OrthographicCameraController m_CameraController;
 	syc::Ref<syc::Texture2D> m_Texture, m_Text0;
+
+	syc::float64 m_FrameDeltaTime = 0.0;
+	syc::int32 m_FrameCount = 0.0;
+	syc::float64 m_FPSTimeCounter = 0.0;
+	syc::float64 m_FPS = 0.0;
+
+	ParticleSystem m_ParticleSystem{ 100000 };
+	ParticleProps m_Particle;
 };
 

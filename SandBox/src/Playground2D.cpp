@@ -17,6 +17,15 @@ void Playground2D::OnAttach()
 	SYC_PROFILE_FUNCTION();
 
 	m_Texture = syc::Texture2D::Create("assets/textures/Checkerboard.png");
+
+	//初始化粒子系统
+	m_Particle.ColorBegin = { 0.8f, 0.8f, 0.2f, 1.0f };
+	m_Particle.ColorEnd = { 0.2f, 0.8f, 0.8f, 1.0f };
+	m_Particle.SizeBegin = 0.3f, m_Particle.SizeVariation = 0.1f; m_Particle.SizeEnd = 0.0f;
+	m_Particle.Velocity = { 0.0f, 0.0f };
+	m_Particle.LifeTime = 5.0f;
+	m_Particle.VelocityVariation = { 3.0f, 1.0f };
+	m_Particle.Position = { 0.0f, 0.0f };
 }
 
 void Playground2D::OnDetach()
@@ -27,6 +36,16 @@ void Playground2D::OnDetach()
 void Playground2D::OnUpdate(syc::Timestep timestep)
 {
 	SYC_PROFILE_FUNCTION();
+
+	m_FrameDeltaTime = timestep;
+
+	m_FrameCount++;
+	m_FPSTimeCounter += m_FrameDeltaTime;
+	if (m_FPSTimeCounter >= 1.0) {
+		m_FPS = m_FrameCount / m_FPSTimeCounter;
+		m_FPSTimeCounter = 0.0;
+		m_FrameCount = 0;
+	}
 
 	// Update
 	{
@@ -72,6 +91,25 @@ void Playground2D::OnUpdate(syc::Timestep timestep)
 
 	}
 
+	if (syc::Input::IsMouseButtonPressed(SYC_MOUSE_BUTTON_LEFT))
+	{
+		auto [x, y] = syc::Input::GetMousePosition();
+		auto width = syc::Application::Get().GetWindow().GetWidth();
+		auto height = syc::Application::Get().GetWindow().GetHeight();
+
+		auto bounds = m_CameraController.GetBounds();
+		auto pos = m_CameraController.GetCamera().GetPosition();
+		x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
+		y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
+		m_Particle.Position = { x + pos.x, y + pos.y };
+		for (size_t i = 0; i < 5; i++)
+		{
+			m_ParticleSystem.Emit(m_Particle);
+		}
+	}
+	m_ParticleSystem.OnUpdate(timestep);
+	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
+
 	//std::dynamic_pointer_cast<syc::OpenGLShader>(m_FlatColorShader)->Bind();
 	//std::dynamic_pointer_cast<syc::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
 }
@@ -88,6 +126,7 @@ void Playground2D::OnImGuiRender()
 	ImGui::Text("Quads %d", stats.QuadCount);
 	ImGui::Text("Vertices %d", stats.GetTotalVertexCount());
 	ImGui::Text("Indices %d", stats.GetTotalIndexCount());
+	ImGui::Text("Frame Time %fms (%0.5ffps)", m_FrameDeltaTime * 1000, m_FPS);
 
 	ImGui::End();
 }

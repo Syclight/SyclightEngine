@@ -8,6 +8,14 @@
 
 namespace syc 
 {
+	struct OrthographicCameraBounds
+	{
+		float32 Left, Right;
+		float32 Bottom, Top;
+		float32 GetWidth() { return Right - Left; }
+		float32 GetHeight() { return Top - Bottom; }
+	};
+
 	class SYC_API OrthographicCameraController
 	{
 	public:
@@ -23,6 +31,7 @@ namespace syc
 		void_ SetZoomLevel(float32 level) { m_ZoomLevel = level; }
 		float32 GetZoomLevel() { return m_ZoomLevel; }
 
+		const OrthographicCameraBounds& GetBounds() const { return m_Bounds; }
 	private:
 		bool8 OnMouseScrolled(MouseScrolledEvent& e);
 		bool8 OnWindowResized(WindowResizeEvent& e);
@@ -31,6 +40,7 @@ namespace syc
 		float32 m_AspectRatio;
 		float32 m_ZoomLevel = 1.0f;
 		float32 m_ZoomSpeed = 0.5f;
+		OrthographicCameraBounds m_Bounds;
 		OrthographicCamera m_Camera;
 
 		bool8 m_Rotation;
