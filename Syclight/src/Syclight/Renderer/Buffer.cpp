@@ -22,7 +22,7 @@ namespace syc
 		}
 	}
 
-	Ref<VertexBuffer> VertexBuffer::Create(float32* vertices, size1d size)
+	Ref<VertexBuffer> VertexBuffer::Create(float32* vertices, size size)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -37,7 +37,7 @@ namespace syc
 		}
 	}
 
-	Ref<IndexBuffer>IndexBuffer::Create(uint32* indices, size1d count)
+	Ref<IndexBuffer>IndexBuffer::Create(uint32* indices, size count)
 	{
 		switch (Renderer::GetAPI())
 		{

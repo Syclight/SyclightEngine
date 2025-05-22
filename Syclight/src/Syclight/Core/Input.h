@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Syclight/Core/Core.h"
+#include "Syclight/Core/Base.h"
 
 namespace syc
 {

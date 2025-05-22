@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Syclight/Core/Core.h"
+#include "Syclight/Core/Base.h"
 #include "Syclight/Core/Layer.h"
 
 #include <vector>

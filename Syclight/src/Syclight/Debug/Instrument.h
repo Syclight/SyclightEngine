@@ -114,7 +114,7 @@ namespace syc
 			int64 start = std::chrono::time_point_cast<std::chrono::microseconds>(m_StartTimepoint).time_since_epoch().count();
 			int64 end = std::chrono::time_point_cast<std::chrono::microseconds>(endTimepoint).time_since_epoch().count();
 
-			uint32 threadID = std::hash<std::thread::id>()(std::this_thread::get_id());
+			uint32 threadID = static_cast<uint32>(std::hash<std::thread::id>()(std::this_thread::get_id()));
 			Instumentor::Get().WriteProfile({ m_Name, start, end, threadID });
 
 			m_Stopped = true;

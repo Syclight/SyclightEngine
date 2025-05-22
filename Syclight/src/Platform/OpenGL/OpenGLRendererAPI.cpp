@@ -49,10 +49,26 @@ namespace syc
 		glDisable(GL_DEPTH_TEST);
 	}
 
-	void_ OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t IndexCount)
+	void_ OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount)
 	{
-		uint32_t count = IndexCount == 0 ? vertexArray->GetIndexBuffers()->GetCount() : IndexCount;
+		/*vertexArray->Bind();
+		uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffers()->GetCount();
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);*/
+
+		vertexArray->Bind();
+		uint32_t count = indexCount == 0 ? vertexArray->GetIndexBuffers()->GetCount() : indexCount;
+		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+	}
+
+	void_ OpenGLRendererAPI::DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount)
+	{
+		vertexArray->Bind();
+		glDrawArrays(GL_LINES, 0, vertexCount);
+	}
+
+	void_ OpenGLRendererAPI::SetLineWidth(float width)
+	{
+		glLineWidth(width);
 	}
 }

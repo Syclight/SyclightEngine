@@ -143,3 +143,5 @@ project "Sandbox"
 		defines "SYC_DIST"
 		runtime "Release"
 		optimize "on"
+
+-- syclight project

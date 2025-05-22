@@ -6,6 +6,27 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+static const syc::int32 MapWidth = 50;
+static const syc::int32 MapHeight = 50;
+static const syc::char8* MapTiles =
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo"
+"oooooooooooooooooooooooooooooooooooooooooooooooooo";
+
+
 Playground2D::Playground2D()
 	:Layer("Playground2D"),
 	m_CameraController(ASPECT_RATIO)
@@ -17,6 +38,10 @@ void Playground2D::OnAttach()
 	SYC_PROFILE_FUNCTION();
 
 	m_Texture = syc::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_SpriteSheet = syc::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+	m_TextureStairs = syc::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 7, 6 }, { 128.0f, 128.0f });
+	m_TextureBarrel = syc::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 8, 2 }, { 128.0f, 128.0f });
+	m_TextureTree = syc::SubTexture2D::CreateFromCoords(m_SpriteSheet, { 2, 1 }, { 128.0f, 128.0f }, {1, 2});
 
 	//初始化粒子系统
 	m_Particle.ColorBegin = { 0.8f, 0.8f, 0.2f, 1.0f };
@@ -26,6 +51,8 @@ void Playground2D::OnAttach()
 	m_Particle.LifeTime = 5.0f;
 	m_Particle.VelocityVariation = { 3.0f, 1.0f };
 	m_Particle.Position = { 0.0f, 0.0f };
+
+	m_CameraController.SetZoomLevel(5.0f);
 }
 
 void Playground2D::OnDetach()
@@ -63,6 +90,7 @@ void Playground2D::OnUpdate(syc::Timestep timestep)
 		syc::RenderCommand::Clear();
 	}
 	
+#if 0
 	{
 		static float rotation = 0.0f;
 		rotation += timestep * 5.0f;
@@ -90,6 +118,7 @@ void Playground2D::OnUpdate(syc::Timestep timestep)
 		syc::Renderer2D::EndScene();
 
 	}
+#endif
 
 	if (syc::Input::IsMouseButtonPressed(SYC_MOUSE_BUTTON_LEFT))
 	{
@@ -107,8 +136,23 @@ void Playground2D::OnUpdate(syc::Timestep timestep)
 			m_ParticleSystem.Emit(m_Particle);
 		}
 	}
+
 	m_ParticleSystem.OnUpdate(timestep);
 	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
+
+	syc::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	//syc::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_SpriteSheet);
+	/*for (size_t i = 0; i < 180; i++)
+	{
+		for (size_t j = 0; j < 180; j++)
+		{
+			syc::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureStairs);
+		}
+	}*/
+	syc::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureStairs);
+	syc::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.5f }, { 1.0f, 1.0f }, m_TextureBarrel);
+	syc::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.5f }, { 1.0f, 2.0f }, m_TextureTree);
+	syc::Renderer2D::EndScene();
 
 	//std::dynamic_pointer_cast<syc::OpenGLShader>(m_FlatColorShader)->Bind();
 	//std::dynamic_pointer_cast<syc::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);

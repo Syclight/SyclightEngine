@@ -9,8 +9,8 @@ namespace syc
 	class SYC_API OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
-		OpenGLVertexBuffer(size1d size);
-		OpenGLVertexBuffer(float32* vertices, size1d size);
+		OpenGLVertexBuffer(size size);
+		OpenGLVertexBuffer(float32* vertices, size size);
 		virtual ~OpenGLVertexBuffer();
 
 		virtual void_ Bind() const override;
@@ -30,7 +30,7 @@ namespace syc
 	class SYC_API OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32* indices, size1d count);
+		OpenGLIndexBuffer(uint32* indices, uint32 count);
 		virtual ~OpenGLIndexBuffer();
 
 		virtual void_ Bind() const override;

@@ -19,10 +19,12 @@ public:
 	virtual void OnEvent(syc::Event& event) override;
 
 private:
-	syc::Ref<syc::VertexArray> m_SquareVA;
 	syc::Ref<syc::Shader> m_FlatColorShader;
 	syc::OrthographicCameraController m_CameraController;
+
 	syc::Ref<syc::Texture2D> m_Texture, m_Text0;
+	syc::Ref<syc::Texture2D> m_SpriteSheet;
+	syc::Ref<syc::SubTexture2D> m_TextureStairs, m_TextureBarrel, m_TextureTree;
 
 	syc::float64 m_FrameDeltaTime = 0.0;
 	syc::int32 m_FrameCount = 0.0;

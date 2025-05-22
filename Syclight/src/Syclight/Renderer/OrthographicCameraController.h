@@ -12,8 +12,8 @@ namespace syc
 	{
 		float32 Left, Right;
 		float32 Bottom, Top;
-		float32 GetWidth() { return Right - Left; }
-		float32 GetHeight() { return Top - Bottom; }
+		float32 GetWidth() const { return Right - Left; }
+		float32 GetHeight() const { return Top - Bottom; }
 	};
 
 	class SYC_API OrthographicCameraController
@@ -28,11 +28,18 @@ namespace syc
 		OrthographicCamera& GetCamera() { return m_Camera; }
 		const OrthographicCamera& GetCamera() const { return m_Camera; }
 
-		void_ SetZoomLevel(float32 level) { m_ZoomLevel = level; }
-		float32 GetZoomLevel() { return m_ZoomLevel; }
+		void_ SetZoomLevel(float32 level) { m_ZoomLevel = level;  CalculateView(); }
+		float32 GetZoomLevel() const { return m_ZoomLevel; }
+
+		void_ SetCameraPos(const glm::vec3& pos) { m_CameraPosition = pos;  m_Camera.SetPosition(m_CameraPosition); }
+		void_ SetCameraPos(float32 x, float32 y, float32 z) { m_CameraPosition = {x, y, z};  m_Camera.SetPosition(m_CameraPosition); }
+		const glm::vec3 GetCameraPos() const { return m_CameraPosition; }
 
 		const OrthographicCameraBounds& GetBounds() const { return m_Bounds; }
+
 	private:
+		void_ CalculateView();
+
 		bool8 OnMouseScrolled(MouseScrolledEvent& e);
 		bool8 OnWindowResized(WindowResizeEvent& e);
 

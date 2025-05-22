@@ -15,7 +15,7 @@ namespace syc
 		if (type == "fragment" || type == "pixel") 
 			return GL_FRAGMENT_SHADER;
 
-		SYC_CORE_ASSERT(false, "Unknown shader type {0}", type);
+		SYC_CORE_ASSERT(false, "Unknown shader");
 
 		return 0;
 	}

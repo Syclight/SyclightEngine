@@ -3,6 +3,7 @@
 
 #include "Syclight/Core/Input.h"
 #include "Syclight/Core/KeyCodes.h"
+#include "Syclight/Core/MouseButtonCodes.h"
 
 namespace syc 
 {
@@ -72,14 +73,19 @@ namespace syc
 		dispatcher.Dispatch<WindowResizeEvent>(SYC_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
 	}
 
+	void_ OrthographicCameraController::CalculateView()
+	{
+		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+	}
+
 	bool8 OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent& e)
 	{
 		SYC_PROFILE_FUNCTION();
 
 		m_ZoomLevel -= e.GetYOffset() * m_ZoomSpeed;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		CalculateView();
 		return false;
 	}
 
@@ -88,8 +94,7 @@ namespace syc
 		SYC_PROFILE_FUNCTION();
 
 		m_AspectRatio = (float32)e.GetWidth() / (float32)e.GetHeight();
-		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
-		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		CalculateView();
 		return false;
 	}
 }

@@ -4,10 +4,16 @@
 #define __SYC_LOG_H__
 
 #include "Common.h"
-#include "Core.h"
+#include "Base.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include "glm/gtx/string_cast.hpp"
+
+// 忽略外部标头中提出的所有警告
+#pragma warning(push, 0)
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
+#pragma warning(pop)
 
 namespace syc
 {
@@ -20,17 +26,35 @@ namespace syc
 		static void_ Init();
 		inline static Ref<spdlog::logger>& GetEngineLogger()
 		{
-			return s_engine_logger;
+			return s_CoreLogger;
 		};
 		inline static Ref<spdlog::logger>& GetClientLogger()
 		{
-			return s_client_logger;
+			return s_ClientLogger;
 		};
 
 	private:
-		static Ref<spdlog::logger> s_engine_logger;
-		static Ref<spdlog::logger> s_client_logger;
+		static Ref<spdlog::logger> s_CoreLogger;
+		static Ref<spdlog::logger> s_ClientLogger;
 	};
+}
+
+template<typename OStream, glm::length_t L, typename T, glm::qualifier Q>
+inline OStream& operator<<(OStream& os, const glm::vec<L, T, Q>& vector)
+{
+	return os << glm::to_string(vector);
+}
+
+template<typename OStream, glm::length_t C, glm::length_t R, typename T, glm::qualifier Q>
+inline OStream& operator<<(OStream& os, const glm::mat<C, R, T, Q>& matrix)
+{
+	return os << glm::to_string(matrix);
+}
+
+template<typename OStream, typename T, glm::qualifier Q>
+inline OStream& operator<<(OStream& os, glm::qua<T, Q> quaternion)
+{
+	return os << glm::to_string(quaternion);
 }
 
 #ifdef _DEBUG
@@ -48,17 +72,17 @@ namespace syc
 	#define SYC_ERROR(...)          ::syc::Log::GetClientLogger()->error(__VA_ARGS__)
 	#define SYC_FATAL(...)          ::syc::Log::GetClientLogger()->critical(__VA_ARGS__)
 #else
-	#define SYC_LOG_ENGINE_TRACE(...)
-	#define SYC_LOG_ENGINE_INFO(...)
-	#define SYC_LOG_ENGINE_WARN(...)
-	#define SYC_LOG_ENGINE_ERROR(...)
-	#define SYC_LOG_ENGINE_FATAL(...)
+	#define SYC_CORE_TRACE(...)
+	#define SYC_CORE_INFO(...)
+	#define SYC_CORE_WARN(...)
+	#define SYC_CORE_ERROR(...)
+	#define SYC_CORE_FATAL(...)
 
-	#define SYC_LOG_TRACE(...)
-	#define SYC_LOG_INFO(...)
-	#define SYC_LOG_WARN(...)
-	#define SYC_LOG_ERROR(...)
-	#define SYC_LOG_FATAL(...)
+	#define SYC_TRACE(...)
+	#define SYC_INFO(...)
+	#define SYC_WARN(...)
+	#define SYC_ERROR(...)
+	#define SYC_FATAL(...)
 #endif // DEBUG
 
 #endif // !__SYC_LOG_H__

@@ -8,7 +8,7 @@ namespace syc
 	// VertexBuffer //////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(size1d size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(size size)
 	{
 		SYC_PROFILE_FUNCTION();
 		glCreateBuffers(1, &m_RendererID);
@@ -16,7 +16,7 @@ namespace syc
 		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
 	}
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float32* vertices, size1d size)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float32* vertices, size size)
 	{
 		SYC_PROFILE_FUNCTION();
 
@@ -56,7 +56,7 @@ namespace syc
 	// IndexBuffer ///////////////////////////////////////////////////////////////////
 	//////////////////////////////////////////////////////////////////////////////////
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32* indices, size1d count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32* indices, uint32 count)
 		:m_Count(count)
 	{
 		SYC_PROFILE_FUNCTION();

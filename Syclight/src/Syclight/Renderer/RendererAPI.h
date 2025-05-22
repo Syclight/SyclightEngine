@@ -26,6 +26,8 @@ namespace syc
 		virtual void_ ShutdownDepthTest() = 0;
 
 		virtual void_ DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t IndexCount = 0) = 0;
+		virtual void_ DrawLines(const Ref<VertexArray>& vertexArray, uint32_t vertexCount) = 0;
+		virtual void_ SetLineWidth(float width) = 0;
 
 		inline static API GetAPI() { return s_API; }
 

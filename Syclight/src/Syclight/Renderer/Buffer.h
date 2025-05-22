@@ -51,7 +51,7 @@ namespace syc
 		uint32 Offset;
 		bool8 Normalized;
 
-		BufferElement() {}
+		//BufferElement() : Normalized(false){}
 
 		BufferElement(ShaderDataType type, const std::string& name, bool8 normalized = false)
 			: Type(type), Name(name), Size(ShaderDataTypeSize(type)), Offset(0), Normalized(normalized)
@@ -142,7 +142,7 @@ namespace syc
 		virtual void_ SetData(const void* data, uint32_t size) = 0;
 
 		static Ref<VertexBuffer> Create(uint32 size);
-		static Ref<VertexBuffer> Create(float32* vertices, size1d size);
+		static Ref<VertexBuffer> Create(float32* vertices, size size);
 	};
 
 	class SYC_API IndexBuffer
@@ -155,6 +155,6 @@ namespace syc
 
 		virtual uint32 GetCount() const = 0;
 
-		static Ref<IndexBuffer> Create(uint32* indices, size1d count);
+		static Ref<IndexBuffer> Create(uint32* indices, size count);
 	};
 }
